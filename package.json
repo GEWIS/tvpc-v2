@@ -1,0 +1,32 @@
+{
+  "name": "ts-webpack-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "eslint": "^7.12.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^15.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
