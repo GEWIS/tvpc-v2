@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href=".">
+    <link rel="stylesheet" href="src/css/style.css" type="text/css" media="screen" />
+    <title>AViCo TVPC-v2 script</title>
+</head>
+<body>
+    <div id="tvpc-content">
+    </div>
+
+    <table id="tvpc-bottom-bar">
+        <tbody style="width: 100%; height: 100%;">
+            <tr id="tvpc-bottom-progress-bar">
+                <td class="tvpc-bottom-bar-entry"  colspan="3" id="tvpc-progress-bar-outer">
+                    <div id="tvpc-progress-bar-inner"></div>
+                </td>
+            </tr>
+            <tr id="tvpc-bottom-info">
+                <td class="tvpc-bottom-bar-entry" id="tvpc-gewis-logo">
+                    <img class="tvpc-logo" src="src/img/Full_Logo_White.png">
+                </td>
+                <td class="tvpc-bottom-bar-entry" id="tvpc-explanation">Board announcement</td>
+                <td class="tvpc-bottom-bar-entry" id="tvpc-time">--:--</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--<div id="tvpc-bottom-bar">
+        <div id="tvpc-progress-bar-outer">
+            <div id="tvpc-progress-bar-inner"></div>
+        </div>
+        <div id="tvpc-bottom-info">
+            <div id="tvpc-gewis-logo">
+                <img class="tvpc-logo" src="img/Full_Logo_White.png">
+            </div>
+            <div id="tvpc-time">
+                <span class="tvpc-clock">--:--</span>
+            </div>
+            <div id="tvpc-explanation">
+                <span id="tvpc-explanation-text">Board Announcement</span>
+            </div>
+        </div>
+    </div>-->
+    <script type="module" src="dist/index.js"></script>
+</body>
+</html>
