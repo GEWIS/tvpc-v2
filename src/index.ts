@@ -1,7 +1,7 @@
-import Clicker from './ts/Clicker.js';
+import Carousel from './ts/Carousel.js';
 
 const clock = document.getElementById('tvpc-time');
-const click = new Clicker('Hello world!');
+const carousel = Carousel.getInstance();
 clock.onclick = () => {
-  click.print();
+  carousel.drawPoster();
 };
