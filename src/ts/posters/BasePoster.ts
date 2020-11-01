@@ -1,4 +1,6 @@
 export default abstract class BasePoster {
+  name: string;
+
   /** The number of seconds that this poster should be shown */
   timeout: number;
 
@@ -9,4 +11,11 @@ export default abstract class BasePoster {
   footer: 'full' | 'minimal';
 
   abstract draw(contentBox: HTMLElement): void;
+
+  protected constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal') {
+    this.name = name;
+    this.timeout = timeout;
+    this.label = label;
+    this.footer = footer;
+  }
 }

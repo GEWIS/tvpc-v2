@@ -1,21 +1,15 @@
 {
-	"version": 2,
+    "version": 2,
     "skin": "gewis",
-	"timeout": 5,
+    "timeout": 5,
     "posters":[
-		{
-			"type": "logo",
-			"timeout": 10
-		},
-		{
-			"type": "infima"
-		},
-		{
-			"type": "agenda"
-		},
-		{
-			"type": "ns",
-			"timeout": 30
-		}
+        {
+            "type": "logo",
+            "timeout": 2
+        },
+        {
+            "type": "infima",
+            "timeout": 2
+        }
     ]
 }

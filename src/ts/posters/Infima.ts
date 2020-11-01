@@ -1,11 +1,8 @@
 import BasePoster from './BasePoster.js';
 
 export default class Infima extends BasePoster {
-  public constructor() {
-    super();
-    this.timeout = 15;
-    this.label = 'Infima';
-    this.footer = 'full';
+  public constructor(timeout: number) {
+    super('Infima', timeout, 'Infima', 'full');
   };
 
   public draw(contentBox: HTMLElement): void {

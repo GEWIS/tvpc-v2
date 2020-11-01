@@ -44,9 +44,11 @@ export class SettingsHandler {
   private static parseSettings(settingsString: string): Settings {
     const parsedSettings = JSON.parse(settingsString);
     // TODO: Fix backend so it returns posters instead of pages
-    Object.defineProperty(parsedSettings, 'posters',
-        Object.getOwnPropertyDescriptor(parsedSettings, 'pages'));
-    delete parsedSettings['pages'];
+    if (!parsedSettings.posters) {
+      Object.defineProperty(parsedSettings, 'posters',
+          Object.getOwnPropertyDescriptor(parsedSettings, 'pages'));
+      delete parsedSettings['pages'];
+    }
 
     // TODO: Remove posters whose due dates have passed
     return parsedSettings as Settings;
