@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "skin": "gewis",
+    "timeout": 5,
+    "posters":[
+        {
+            "type": "logo",
+            "timeout": 4
+        },
+        {
+            "type": "infima",
+            "timeout": 4
+        }
+    ]
+}

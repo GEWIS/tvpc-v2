@@ -1,0 +1,454 @@
+:root {
+  --accent-color: #ff0000;
+}
+
+body {
+	background-image: url(../img/background.png);
+	background-color: #ffffff;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.hidden{
+	visibility: hidden;
+}
+
+.logo {
+	content: url("../img/Full_Logo_Colour.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	height: 80%;
+	margin: 3.5%;
+	width: auto;
+	z-index: 10;
+}
+
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#timer{
+	background: #c40000;
+}
+
+.agenda_lunch_lecture{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-image: url(../img/posterc4.png);
+	background-color: #ffffff;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	height:100%;
+	width: 100%;
+	font-family: "Roboto";
+	font-weight: 200;
+
+}
+
+.agenda_lunch_lecture .first{
+	font-size: 3em;
+}
+
+.agenda_lunch_lecture .first p{
+	line-height: 0;
+}
+
+.agenda_lunch_lecture .first .title{
+	margin-top: 4.5em;
+	margin-left: 1.2em;
+}
+
+.agenda_lunch_lecture .first .time{
+	font-size: 0.55em;
+	font-weight: 100;
+	margin-left: 2.25em;
+	margin-top: 1em;
+	letter-spacing: -0.08em;
+}
+
+.agenda_lunch_lecture .first .location{
+	font-size: 0.55em;
+	font-weight: 100;
+	margin-left: 2.25em;
+	margin-top: 1.3em;
+	letter-spacing: -0.08em;
+}
+
+.agenda_lunch_lecture .first .divider{
+	font-size: 1.25em;
+	margin-left: 0.4em;
+	letter-spacing: -0.05em;
+}
+
+.agenda_lunch_lecture .first .company{
+	font-size: 1.2em;
+	font-weight: bold;
+	letter-spacing: -0.05em;
+	margin-left: 0.34em;
+}
+
+	.agenda_lunch_lecture ul {
+		list-style: none;
+		margin: 0;
+		padding: 0 0.5em 0 0.5em;
+	}
+
+.agenda_lunch_lecture .second p{
+	margin-top: 0.7em;
+}
+
+.agenda_lunch_lecture .other p{
+	margin-top: -0.2em;
+}
+
+.agenda_lunch_lecture .other .title, .agenda_lunch_lecture .second .title{
+	margin-left: 1.52em;
+	font-size: 2.3em;
+	letter-spacing: -0.05em;
+	font-weight: 100;
+	margin-bottom: 0;
+}
+
+
+.agenda_lunch_lecture .other .divider, .agenda_lunch_lecture .second .divider{
+	margin-left: 0.3em;
+	font-size: 1em;
+	letter-spacing: -0.05em;
+	font-weight: 100;
+}
+
+.agenda_lunch_lecture .other .company, .agenda_lunch_lecture .second .company{
+	margin-left: 0.25em;
+	font-size: 1em;
+	letter-spacing: -0.05em;
+	font-weight: bold;
+}
+
+.agenda_lunch_lecture .no-lunch .info{
+	font-size: 3em;
+	margin-top: 4.5em;
+	margin-left: 1.2em;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.agenda_lunch_lecture .no-lunch .next{
+	font-size: 2em;
+	margin-top: 0.5em;
+	margin-left: 1.8em;
+	font-weight: 100;
+}
+
+.agenda_lunch_lecture .strike{
+		text-decoration: line-through;
+	}
+
+
+.agenda {
+	background: #013370;
+	display: block;
+	height: 100%;
+	width: 100%;
+	padding: 1.5em 2.5em;
+	/*text-shadow: 0.05em 0.05em 0.2em #000000;*/
+}
+
+	.agenda .parent {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 1fr;
+		grid-column-gap: 0;
+		grid-row-gap: 0;
+	}
+
+	.agenda .fa-stack {
+		color: #ffffff;
+		grid-area: 1 / 1 / 2 / 2;
+		float: left;
+		font-size: 2.5em;
+		line-height: 0.65em;
+	}
+
+	.agenda .day{
+		display: block;
+		font-size: 0.75em;
+	}
+	.agenda .month {
+		display: block;
+		font-size: 0.5em;
+	}
+
+	.agenda .activity-name {
+		font-weight: normal;
+		color: #ffffff;
+		grid-area: 1 / 2 / 2 / 3;
+		font-size: 2.5em;
+		margin: 0 0 0 0.5em;
+	}
+
+	.agenda .myfuture{
+		margin-bottom: 2.5em;
+		margin-left: 0.5em;
+	}
+
+	.agenda .calendar-text{
+		text-align: center;
+		margin-top: .4em;
+		color:#013370;
+	}
+
+	.agenda .title {
+		color: #ffffff;
+		font-size: 4em;
+		margin: 0;
+		padding: 0 0 0.3em 0;
+	}
+
+	.agenda ul {
+		list-style: none;
+		margin: 0;
+		padding: 0 0.5em 0 0.5em;
+	}
+
+	.agenda .strike{
+		text-decoration: line-through;
+	}
+
+		.agenda ul li {
+			display: flex;
+  			align-items: center;
+			margin: 0;
+			padding: 1em 0 0 0;
+		}
+
+/*.poster {*/
+/*	display: block;*/
+/*	height: 100%;*/
+/*	width: 100%;*/
+/*	!*object-fit: contain;*!*/
+/*}*/
+
+.poster {
+	/*background-color: #000000;*/
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	backdrop-filter: blur(5px);
+	display: block;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.photo {
+	background-color: #000000;
+	position: relative;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-size:cover;
+}
+
+.photo .background-image{
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	z-index:1;
+	-webkit-filter: blur(15px);
+	-moz-filter: blur(15px);
+	-o-filter: blur(15px);
+	-ms-filter: blur(15px);
+	filter: blur(15px);
+	opacity: 50%;
+
+}
+
+.photo .content {
+	position:relative;
+	z-index:2;
+	display: block;
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+	/*.photo p {*/
+	/*	background-color: rgba(0, 0, 0, 0.5);*/
+	/*	display: block;*/
+	/*	position: absolute;*/
+	/*	bottom: 0;*/
+	/*	margin: 0;*/
+	/*	padding: 0.3em 0;*/
+	/*	width: 100%;*/
+	/*	font-size: 1.8em;*/
+	/*	text-align: center;*/
+	/*	text-shadow: 0.05em 0.05em 0.2em #000000;*/
+	/*}*/
+
+	/*	.photo p span {*/
+	/*		display: none;*/
+	/*	}*/
+
+.facebook {
+	background-color: rgba(59, 89, 152, 0.5);
+	display: block;
+	min-height: 100%;
+	width: 100%;
+	padding: 1.5em 2.5em;
+	text-shadow: 0.05em 0.05em 0.2em #000000;
+}
+
+	.facebook h1 {
+		font-size: 4em;
+		margin: 0;
+		padding: 0 0 0.3em 0;
+	}
+
+	.facebook p {
+		font-size: 1.7em;
+	}
+
+.ns {
+	background-color: rgba(254, 201, 23, 0.9);
+	color: #003082;
+	display: block;
+	min-height: 100%;
+	width: 100%;
+	padding: 1.5em 2.5em;
+}
+
+	.ns h1 {
+		font-size: 4em;
+		margin: 0;
+		padding: 0;
+	}
+
+	.ns table {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		overflow: hidden;
+	}
+
+			.ns table tr td {
+				border-color: rgba(255, 255, 0, 0.5);
+				border-style: solid;
+				border-width: 0 0 1px 0;
+				margin: 0;
+				padding: 0.3em 0 0.3em 0;
+				vertical-align: middle;
+			}
+
+			.ns table tr td.departure {
+				font-size: 2em;
+				padding-left: 0.5em;
+				text-align: left;
+				width: 1px; /*Note the no-wrap*/
+			}
+
+			.ns table tr td.delay {
+				color: #ff0000;
+				font-size: 1.5em;
+				padding: 0 0 0.8em 0;
+				white-space: nowrap;
+				width: 4%;
+			}
+
+			.ns table tr td.destination {
+				font-size: 2em;
+				vertical-align: middle;
+				display: table;
+				width: 99%; /*Note the no-wrap*/
+			}
+
+			.ns table tr td div.direction {
+				display: table-cell;
+				vertical-align: middle;
+				width: 1%;
+				white-space: nowrap;
+			}
+
+			.ns table tr td div.info {
+				display: table-cell;
+				vertical-align: middle;
+				font-size: 0.5em;
+				line-height: 1.2em;
+				padding-left: 1em;
+			}
+
+.infima {
+	background: #013370;
+	display: block;
+	min-height: 100%;
+	width: 100%;
+	padding: 1.5em;
+}
+
+.infima .container {
+	width:130%;
+	height: 1000px;
+	position: relative;
+}
+
+.vertical-center {
+	margin: 0;
+	position: absolute;
+	left: 40%;
+	top: 50%;
+	-ms-transform: translateY(-50%) translateX(-50%);
+	transform: translateY(-50%) translateX(-50%);
+}
+	.vertical-line{
+		border-left: 15px solid #ffffff;
+		padding-left: 37px;
+		padding-bottom: 15px;
+		padding-top: 15px;
+	}
+	/*.infima h1 {*/
+	/*	font-size: 4em;*/
+	/*	margin: 0;*/
+	/*	padding: 0 0 0.3em 0;*/
+	/*}*/
+
+	.infima .infima_speaker, .infima .infima_quote {
+		font-family: inherit;
+		font-size: 2.5em;
+	}
+
+	.infima .infima_speaker{
+		white-space: pre-line;
+		font-style: italic;
+	}
+
+.clock {
+	display: block;
+	height: 100%;
+}
+
+	.clock table {
+		background-color: rgba(0, 0, 0, 0.7);
+		height: 100%;
+		width: 100%;
+	}
+
+		.clock table #tvpc-clock {
+			font-family: "Source Code Pro", monospace;
+			font-size: 10em;
+			text-align: center;
+			vertical-align: middle;
+		}

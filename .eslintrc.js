@@ -16,5 +16,7 @@ module.exports = {
   ],
   'rules': {
     'require-jsdoc': 0,
+    'max-len': [1, {'code': 120}],
+    'linebreak-style': [2, 'windows'],
   },
 };
