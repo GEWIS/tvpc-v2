@@ -5,11 +5,11 @@
     "posters":[
         {
             "type": "logo",
-            "timeout": 2
+            "timeout": 4
         },
         {
             "type": "infima",
-            "timeout": 2
+            "timeout": 4
         }
     ]
 }

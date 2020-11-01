@@ -2,24 +2,26 @@ import BasePoster from './posters/BasePoster.js';
 import Infima from './posters/Infima.js';
 import {SettingsHandler as sh} from './SettingsHandler.js';
 import Logo from './posters/Logo.js';
+import InfoBar from './InfoBar';
 
 export default class Carousel {
   private currentPosterNr: number;
-
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
+  private infoBar: InfoBar;
 
   private static instance: Carousel;
 
-  private constructor() {
+  private constructor(infoBar: InfoBar) {
+    this.infoBar = infoBar;
     this.createNextPoster(0);
     this.currentPoster = this.nextPoster;
     this.currentPosterNr = 0;
   };
 
-  public static getInstance() {
+  public static getInstance(infoBar: InfoBar) {
     if (Carousel.instance === undefined) {
-      Carousel.instance = new Carousel();
+      Carousel.instance = new Carousel(infoBar);
     }
     return Carousel.instance;
   }
@@ -44,11 +46,13 @@ export default class Carousel {
     this.createNextPoster(this.currentPosterNr);
   }
 
-  public drawPoster() {
-    this.loadNextPoster();
+  public async drawPoster() {
+    await this.infoBar.resetProgressBar();
     const contentBox = document.getElementById('tvpc-content');
     this.nextPoster.draw(contentBox);
     this.currentPoster = this.nextPoster;
+    await this.infoBar.startProgressBar(this.currentPoster.timeout);
     setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
+    this.loadNextPoster();
   }
 }
