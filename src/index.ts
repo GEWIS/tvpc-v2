@@ -4,12 +4,14 @@ import InfoBar from './ts/InfoBar.js';
 import Clock from './ts/Clock.js';
 
 async function init() {
-  await SettingsHandler.initialize();
+  const contentElement = document.getElementById('tvpc-content');
   const clockElement = document.getElementById('tvpc-time');
+
+  await SettingsHandler.initialize();
   const infoBar = InfoBar.getInstance();
   const clock = new Clock(clockElement);
   clock.startClock();
-  const carousel = Carousel.getInstance(infoBar);
+  const carousel = Carousel.getInstance(infoBar, contentElement);
   clockElement.onclick = () => {
     carousel.drawPoster();
   };

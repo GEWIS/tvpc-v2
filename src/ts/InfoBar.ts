@@ -1,3 +1,5 @@
+import {delay} from './Helper.js';
+
 export default class InfoBar {
   private static instance: InfoBar;
 
@@ -22,10 +24,10 @@ export default class InfoBar {
     const progressBar = document.getElementById('tvpc-progress-bar-inner');
     progressBar.style.transition = '';
     // Give the browser some time to adjust
-    await delay(50);
+    await delay(20);
     progressBar.style.transform = 'translateX(-100%)';
     // Give the browser some time to adjust
-    await delay(50);
+    await delay(20);
   }
 
   /**
@@ -37,8 +39,4 @@ export default class InfoBar {
     progressBar.style.transition = `transform ${time}s ease`;
     progressBar.style.transform = 'translateX(0)';
   }
-}
-
-function delay(ms: number) {
-  return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
