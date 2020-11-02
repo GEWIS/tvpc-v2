@@ -12,8 +12,9 @@ async function init() {
   const clock = new Clock(clockElement);
   clock.startClock();
   const carousel = Carousel.getInstance(infoBar, contentElement);
+  carousel.drawPoster();
   clockElement.onclick = () => {
-    carousel.drawPoster();
+    carousel.forceNextPoster();
   };
   console.log('READY!');
 }

@@ -452,3 +452,14 @@ body {
 			text-align: center;
 			vertical-align: middle;
 		}
+
+.tvpc-iframe {
+	border: none;
+	display: block;
+	position: relative;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+}

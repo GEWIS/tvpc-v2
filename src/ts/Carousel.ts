@@ -1,5 +1,7 @@
 import BasePoster from './posters/BasePoster.js';
 import Infima from './posters/Infima.js';
+import External from './posters/External.js';
+import Image from './posters/Image.js';
 import {SettingsHandler as sh} from './SettingsHandler.js';
 import Logo from './posters/Logo.js';
 import InfoBar from './InfoBar.js';
@@ -9,6 +11,7 @@ export default class Carousel {
   private currentPosterNr: number;
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
+  private loop: number;
   private readonly infoBar: InfoBar;
   private readonly contentBox: HTMLElement;
 
@@ -27,6 +30,14 @@ export default class Carousel {
       Carousel.instance = new Carousel(infoBar, contentBox);
     }
     return Carousel.instance;
+  }
+
+  /**
+   * Forcefully go to the next poster
+   */
+  public async forceNextPoster() {
+    clearTimeout(this.loop);
+    await this.drawPoster();
   }
 
   /**
@@ -59,6 +70,19 @@ export default class Carousel {
       case 'logo':
         this.nextPoster = new Logo(posterToSet.timeout);
         break;
+      case 'external':
+        this.nextPoster = new External(posterToSet.name, posterToSet.timeout, posterToSet.label,
+            'full', posterToSet.source);
+        break;
+      // Legacy format: only here for backwards compatibility
+      case 'poster':
+        this.nextPoster = new Image(posterToSet.name, posterToSet.timeout, posterToSet.label,
+            'full', posterToSet.posters[0]);
+        break;
+      case 'image':
+        this.nextPoster = new Image(posterToSet.name, posterToSet.timeout, posterToSet.label,
+            'full', posterToSet.source);
+        break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);
     }
@@ -67,7 +91,7 @@ export default class Carousel {
   /**
    * Load the next poster in the appropriate variables
    */
-  public loadNextPoster() {
+  private loadNextPoster() {
     this.currentPosterNr = (this.currentPosterNr + 1) % sh.settings.posters.length;
     this.createNextPoster(this.currentPosterNr);
   }
@@ -83,7 +107,7 @@ export default class Carousel {
 
     await this.showPoster();
     await this.infoBar.startProgressBar(this.currentPoster.timeout);
-    setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
+    this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
     this.loadNextPoster();
   }
 }

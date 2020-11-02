@@ -59,11 +59,11 @@ export class SettingsHandler {
    */
   public static async initialize(): Promise<void> {
     let settingsString: string;
-    try {
-      settingsString = await this.getTXTFileContents(this._vvzSettingsFile);
-    } catch (error) {
-      settingsString = await this.getTXTFileContents(this._localSettingsFile);
-    }
+    // try {
+    // settingsString = await this.getTXTFileContents(this._vvzSettingsFile);
+    // } catch (error) {
+    settingsString = await this.getTXTFileContents(this._localSettingsFile);
+    // }
     this._settings = this.parseSettings(settingsString);
   }
 }
