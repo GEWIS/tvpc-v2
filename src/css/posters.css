@@ -396,11 +396,10 @@ body {
 	display: block;
 	min-height: 100%;
 	width: 100%;
-	padding: 1.5em;
 }
 
 .infima .container {
-	width:130%;
+	width:100%;
 	height: 1000px;
 	position: relative;
 }
@@ -408,7 +407,7 @@ body {
 .vertical-center {
 	margin: 0;
 	position: absolute;
-	left: 40%;
+	left: 50%;
 	top: 50%;
 	-ms-transform: translateY(-50%) translateX(-50%);
 	transform: translateY(-50%) translateX(-50%);
@@ -425,12 +424,12 @@ body {
 	/*	padding: 0 0 0.3em 0;*/
 	/*}*/
 
-	.infima .infima_speaker, .infima .infima_quote {
+	.infima .infima-speaker, .infima .infima-quote {
 		font-family: inherit;
 		font-size: 2.5em;
 	}
 
-	.infima .infima_speaker{
+	.infima .infima-speaker{
 		white-space: pre-line;
 		font-style: italic;
 	}

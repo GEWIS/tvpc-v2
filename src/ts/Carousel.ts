@@ -40,6 +40,11 @@ export default class Carousel {
     await this.drawPoster();
   }
 
+  public stopLoop() {
+    clearTimeout(this.loop);
+    this.infoBar.resetProgressBar();
+  }
+
   /**
    * Hide the contents of the contentBox, aka the poster
    */
