@@ -10,6 +10,8 @@ export default abstract class BasePoster {
   /** Whether the full footer should be shown, or only a minimal one */
   footer: 'full' | 'minimal';
 
+  abstract preLoad(): void;
+
   abstract draw(contentBox: HTMLElement): void;
 
   protected constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal') {

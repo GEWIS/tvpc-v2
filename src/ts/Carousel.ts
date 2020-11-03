@@ -1,9 +1,9 @@
 import BasePoster from './posters/BasePoster.js';
-import Infima from './posters/Infima.js';
-import External from './posters/External.js';
-import Image from './posters/Image.js';
+import InfimaPoster from './posters/InfimaPoster.js';
+import ExternalPoster from './posters/ExternalPoster.js';
+import ImagePoster from './posters/ImagePoster.js';
 import {SettingsHandler as sh} from './SettingsHandler.js';
-import Logo from './posters/Logo.js';
+import LogoPoster from './posters/LogoPoster.js';
 import InfoBar from './InfoBar.js';
 import {delay} from './Helper.js';
 
@@ -70,22 +70,22 @@ export default class Carousel {
 
     switch (posterToSet.type) {
       case 'infima':
-        this.nextPoster = new Infima(posterToSet.timeout);
+        this.nextPoster = new InfimaPoster(posterToSet.timeout);
         break;
       case 'logo':
-        this.nextPoster = new Logo(posterToSet.timeout);
+        this.nextPoster = new LogoPoster(posterToSet.timeout);
         break;
       case 'external':
-        this.nextPoster = new External(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             'full', posterToSet.source);
         break;
       // Legacy format: only here for backwards compatibility
       case 'poster':
-        this.nextPoster = new Image(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             'full', posterToSet.posters[0]);
         break;
       case 'image':
-        this.nextPoster = new Image(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             'full', posterToSet.source);
         break;
       default:
@@ -113,6 +113,7 @@ export default class Carousel {
     await this.showPoster();
     await this.infoBar.startProgressBar(this.currentPoster.timeout);
     this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
-    this.loadNextPoster();
+    await this.loadNextPoster();
+    await this.nextPoster.preLoad();
   }
 }

@@ -1,8 +1,10 @@
 import BasePoster from './BasePoster.js';
 
-export default class Infima extends BasePoster {
+export default class InfimaPoster extends BasePoster {
+  private parsedInfima: string;
+
   public constructor(timeout: number) {
-    super('Infima', timeout, 'Infima', 'full');
+    super('InfimaPoster', timeout, 'InfimaPoster', 'full');
   };
 
   private getInfima(): Promise<string> {
@@ -26,8 +28,8 @@ export default class Infima extends BasePoster {
     });
   }
 
-  public async draw(contentBox: HTMLElement): Promise<void> {
-    let result = '';
+  async preLoad(): Promise<void> {
+    this.parsedInfima = '';
 
     try {
       const query = await this.getInfima();
@@ -35,27 +37,29 @@ export default class Infima extends BasePoster {
       const parts = text.split('"');
 
       if (parts.length <= 1) {
-        result = text;
+        this.parsedInfima = text;
       } else {
         let i = 0;
         while (i < parts.length - 1) {
-          result += `<span class="infima-speaker">${parts[i]}</span><br>`;
+          this.parsedInfima += `<span class="infima-speaker">${parts[i]}</span><br>`;
           if (i + 1 < parts.length - 1) {
-            result += `<span class="infima-quote">"${parts[i + 1]}"</span><br>`;
+            this.parsedInfima += `<span class="infima-quote">"${parts[i + 1]}"</span><br>`;
           }
           i += 2;
         }
       }
-    // If somehow something fails, return just an empty string
+      // If somehow something fails, return just an empty string
     } catch (error) {
-      result = '';
+      this.parsedInfima = '';
     }
+  }
 
+  draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
       <article class="infima">
         <div class="container">
           <div class="vertical-line vertical-center">
-            ${result}
+            ${this.parsedInfima}
           </div>
         </div>
       </article>`;
