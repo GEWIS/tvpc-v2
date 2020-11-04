@@ -40,9 +40,12 @@ export default class Carousel {
     await this.drawPoster();
   }
 
+  /**
+   * Forcefully pause the loop. Can only be restarted by forcing the next poster
+   */
   public stopLoop() {
     clearTimeout(this.loop);
-    this.infoBar.resetProgressBar();
+    this.infoBar.resetProgressBar(this.currentPoster.footer);
   }
 
   /**
@@ -75,18 +78,19 @@ export default class Carousel {
       case 'logo':
         this.nextPoster = new LogoPoster(posterToSet.timeout);
         break;
+      // Includes legacy format without footer
       case 'external':
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            'full', posterToSet.source);
+            posterToSet.footer || 'full', posterToSet.source);
         break;
       // Legacy format: only here for backwards compatibility
       case 'poster':
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            'full', posterToSet.posters[0]);
+            posterToSet.footer || 'full', posterToSet.posters[0]);
         break;
       case 'image':
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            'full', posterToSet.source);
+            posterToSet.footer, posterToSet.source);
         break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);
@@ -105,13 +109,13 @@ export default class Carousel {
    * Draw the next poster and load pre-load the next next poster
    */
   public async drawPoster() {
-    await this.infoBar.resetProgressBar();
+    await this.infoBar.resetProgressBar(this.nextPoster.footer);
     await this.hidePoster();
     this.nextPoster.draw(this.contentBox);
     this.currentPoster = this.nextPoster;
 
-    await this.showPoster();
-    await this.infoBar.startProgressBar(this.currentPoster.timeout);
+    this.showPoster();
+    await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
     this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
     await this.loadNextPoster();
     await this.nextPoster.preLoad();

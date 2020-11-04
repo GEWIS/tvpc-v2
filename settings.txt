@@ -69,7 +69,8 @@
                 "id":"545d78c174d650d567234d8c",
                 "name":"Company"
             },
-            "due":null
+            "due":null,
+            "footer": "minimal"
         },
         {
             "type":"poster",
@@ -95,7 +96,8 @@
                 "id":"545d78c174d650d567234d8c",
                 "name":"Company"
             },
-            "due":null
+            "due":null,
+            "footer": "minimal"
         },
         {
             "type":"poster",
@@ -108,7 +110,8 @@
                 "id":"545d78c174d650d567234d8c",
                 "name":"Company"
             },
-            "due":"2020-07-01T10:00:00.000Z"
+            "due":"2020-07-01T10:00:00.000Z",
+            "footer": "minimal"
         },
         {
             "type":"poster",

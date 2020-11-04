@@ -11,11 +11,11 @@
     <div id="tvpc-content">
     </div>
 
-    <table id="tvpc-bottom-bar">
+    <table id="tvpc-bottom-bar" style="background-color: rgba(0, 0, 0, 0.5);">
         <tbody style="width: 100%; height: 100%;">
-            <tr id="tvpc-bottom-progress-bar">
-                <td class="tvpc-bottom-bar-entry"  colspan="3" id="tvpc-progress-bar-outer">
-                    <div id="tvpc-progress-bar-inner"></div>
+            <tr class="tvpc-bottom-progress-bar" id="tvpc-bottom-progress-bar-top">
+                <td class="tvpc-bottom-bar-entry tvpc-progress-bar-outer"  colspan="3" id="tvpc-progress-bar-top-outer">
+                    <div class="tvpc-progress-bar-inner" id="tvpc-progress-bar-top-inner"></div>
                 </td>
             </tr>
             <tr id="tvpc-bottom-info">
@@ -25,25 +25,13 @@
                 <td class="tvpc-bottom-bar-entry" id="tvpc-explanation">Board announcement</td>
                 <td class="tvpc-bottom-bar-entry" id="tvpc-time">--:--</td>
             </tr>
+            <tr class="tvpc-bottom-progress-bar" id="tvpc-bottom-progress-bar-bottom">
+                <td class="tvpc-bottom-bar-entry tvpc-progress-bar-outer"  colspan="3" id="tvpc-progress-bar-bottom-outer">
+                    <div class="tvpc-progress-bar-inner" id="tvpc-progress-bar-bottom-inner" style="transform: translateX(-100%);"></div>
+                </td>
+            </tr>
         </tbody>
     </table>
-
-    <!--<div id="tvpc-bottom-bar">
-        <div id="tvpc-progress-bar-outer">
-            <div id="tvpc-progress-bar-inner"></div>
-        </div>
-        <div id="tvpc-bottom-info">
-            <div id="tvpc-gewis-logo">
-                <img class="tvpc-logo" src="img/Full_Logo_White.png">
-            </div>
-            <div id="tvpc-time">
-                <span class="tvpc-clock">--:--</span>
-            </div>
-            <div id="tvpc-explanation">
-                <span id="tvpc-explanation-text">Board Announcement</span>
-            </div>
-        </div>
-    </div>-->
     <script type="module" src="dist/index.js"></script>
 </body>
 </html>

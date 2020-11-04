@@ -10,7 +10,7 @@ export default class LogoPoster extends BasePoster {
   draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
     <article>
-        <img class="logo center">
+        <img class="logo center" src="./src/img/Full_Logo_Colour.png">
     </article>
     `;
   }

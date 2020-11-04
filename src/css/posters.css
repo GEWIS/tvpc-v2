@@ -15,12 +15,12 @@ body {
 }
 
 .logo {
-	content: url("../img/Full_Logo_Colour.png");
+	/*content: url("../img/Full_Logo_Colour.png");*/
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	display: block;
-	height: 80%;
+	height: 80vh;
 	margin: 3.5%;
 	width: auto;
 	z-index: 10;
