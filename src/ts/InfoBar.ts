@@ -26,12 +26,10 @@ export default class InfoBar {
    * @param {string} newSize - The size of the upcoming poster
    */
   private async switchProgressBar(action: 'start' | 'stop', newSize: 'full' | 'minimal'): Promise<void> {
-    console.log(`action: ${action} && newSize: ${newSize}`)
     if (this.currentSize != newSize) {
       switch (newSize) {
         case 'full':
           if (action === 'start') {
-            console.log('Redraw full bar');
             document.getElementById('tvpc-bottom-bar').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
             document.getElementById('tvpc-gewis-logo').style.visibility = '';
             document.getElementById('tvpc-explanation').style.visibility = '';
@@ -43,7 +41,6 @@ export default class InfoBar {
 
         case 'minimal':
           if (action === 'stop') {
-            console.log('Show minimal bar');
             document.getElementById('tvpc-bottom-bar').style.backgroundColor = '';
             document.getElementById('tvpc-gewis-logo').style.visibility = 'hidden';
             document.getElementById('tvpc-explanation').style.visibility = 'hidden';

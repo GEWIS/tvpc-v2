@@ -6,6 +6,7 @@ import {SettingsHandler as sh} from './SettingsHandler.js';
 import LogoPoster from './posters/LogoPoster.js';
 import InfoBar from './InfoBar.js';
 import {delay} from './Helper.js';
+import PhotoPoster from './posters/PhotoPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
@@ -91,6 +92,9 @@ export default class Carousel {
       case 'image':
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             posterToSet.footer, posterToSet.source);
+        break;
+      case 'photo':
+        this.nextPoster = new PhotoPoster(posterToSet.timeout, posterToSet.galleries);
         break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);

@@ -3,6 +3,7 @@ import Settings from './entities/Settings.js';
 export class SettingsHandler {
   private static _localSettingsFile = './settings.txt'
   private static _vvzSettingsFile = 'https://gewis.nl/~vvz/tvpc/settings.txt';
+  private static _tokenFile = './api-token.txt'
   private static _settings: Settings;
 
   static get settings(): Settings {
@@ -39,10 +40,12 @@ export class SettingsHandler {
   /**
    * Parse the settings string from the input file
    * @param {string} settingsString - The string that has been pulled from the TXT files
+   * @param {string} apiToken - The API token read from the token file
    * @return {Settings} - Settings object which contains the settings
    */
-  private static parseSettings(settingsString: string): Settings {
+  private static parseSettings(settingsString: string, apiToken: string): Settings {
     const parsedSettings = JSON.parse(settingsString);
+    parsedSettings.token = apiToken;
     // TODO: Fix backend so it returns posters instead of pages
     if (!parsedSettings.posters) {
       Object.defineProperty(parsedSettings, 'posters',
@@ -64,7 +67,8 @@ export class SettingsHandler {
     // } catch (error) {
     settingsString = await this.getTXTFileContents(this._localSettingsFile);
     // }
-    this._settings = this.parseSettings(settingsString);
+    const apiToken = await this.getTXTFileContents(this._tokenFile);
+    this._settings = this.parseSettings(settingsString, apiToken);
   }
 }
 

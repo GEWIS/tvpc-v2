@@ -17,6 +17,21 @@
             "due":null
         },
         {
+            "type":"photo",
+            "timeout":10,
+            "galleries":[
+                "1818",
+                "1820",
+                "1819",
+                "1821",
+                "1826",
+                "1823",
+                "1825",
+                "1824",
+                "1827"
+            ]
+        },
+        {
             "type":"external",
             "name":"Summaries",
             "source":"https:\/\/gewis.nl\/~secr\/tvpc\/summary.php",

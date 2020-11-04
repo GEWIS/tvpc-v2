@@ -1,7 +1,7 @@
 import BasePoster from './BasePoster.js';
 
 export default class ImagePoster extends BasePoster {
-  private readonly sourceUrl: string;
+  protected sourceUrl: string;
 
   // @ts-ignore
   private image: Image;

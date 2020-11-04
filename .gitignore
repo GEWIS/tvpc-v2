@@ -105,3 +105,6 @@ dist
 
 # Jetbrains
 .idea
+
+# API token
+api-token.txt

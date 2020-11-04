@@ -6,7 +6,7 @@ export default class Poster {
   label: string;
 
   /** The type of poster */
-  type: 'infima' | 'image' | 'logo' | 'external' | 'poster';
+  type: 'infima' | 'image' | 'logo' | 'external' | 'poster' | 'photo';
 
   /** The date at which the poster has to be pulled from the screens */
   due: Date | undefined;
@@ -22,4 +22,7 @@ export default class Poster {
 
   /** LEGACY format, only here for backwards compatibility */
   posters: string[] | undefined;
+
+  /** If the poster is a 'photo' type, it has galleries */
+  galleries: string[] | undefined;
 }
