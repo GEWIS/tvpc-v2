@@ -7,6 +7,7 @@ import LogoPoster from './posters/LogoPoster.js';
 import InfoBar from './InfoBar.js';
 import {delay} from './Helper.js';
 import PhotoPoster from './posters/PhotoPoster.js';
+import AgendaPoster from './posters/AgendaPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
@@ -73,6 +74,9 @@ export default class Carousel {
     const posterToSet = sh.settings.posters[posterNr];
 
     switch (posterToSet.type) {
+      case 'agenda':
+        this.nextPoster = new AgendaPoster(posterToSet.timeout);
+        break;
       case 'infima':
         this.nextPoster = new InfimaPoster(posterToSet.timeout);
         break;

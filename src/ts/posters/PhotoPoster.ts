@@ -1,5 +1,6 @@
 import ImagePoster from './ImagePoster.js';
 import {SettingsHandler as sh} from '../SettingsHandler.js';
+import {doXMLHttpRequest} from '../Helper.js';
 
 export default class PhotoPoster extends ImagePoster {
   private galleries: string[];
@@ -10,25 +11,7 @@ export default class PhotoPoster extends ImagePoster {
   }
 
   private async requestImage(albumId: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', `https://gewis.nl/api/photo/album/${albumId}`, true);
-      xhr.setRequestHeader('X-Auth-Token', sh.settings.token);
-
-      xhr.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject(new Error(`${this.status}: ${this.statusText}`));
-        }
-      };
-
-      xhr.onerror = function() {
-        reject(new Error(`${this.status}: ${this.statusText}`));
-      };
-
-      xhr.send();
-    });
+    return await doXMLHttpRequest(`https://gewis.nl/api/photo/album/${albumId}`, sh.settings.token);
   }
 
   public async preLoad(): Promise<void> {

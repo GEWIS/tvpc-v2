@@ -1,4 +1,5 @@
 import Settings from './entities/Settings.js';
+import {doXMLHttpRequest} from './Helper.js';
 
 export class SettingsHandler {
   private static _localSettingsFile = './settings.txt'
@@ -17,24 +18,7 @@ export class SettingsHandler {
    * @return {Error} something went wrong with getting the file
    */
   private static async getTXTFileContents(location: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', location);
-
-      xhr.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject(new Error(`${this.status}: ${this.statusText}`));
-        }
-      };
-
-      xhr.onerror = function() {
-        reject(new Error(`${this.status}: ${this.statusText}`));
-      };
-
-      xhr.send();
-    });
+    return await doXMLHttpRequest(location, undefined);
   }
 
   /**

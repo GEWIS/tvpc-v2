@@ -6,7 +6,7 @@ export default class Poster {
   label: string;
 
   /** The type of poster */
-  type: 'infima' | 'image' | 'logo' | 'external' | 'poster' | 'photo';
+  type: 'agenda' | 'infima' | 'image' | 'logo' | 'external' | 'poster' | 'photo';
 
   /** The date at which the poster has to be pulled from the screens */
   due: Date | undefined;
