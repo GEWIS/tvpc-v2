@@ -105,3 +105,6 @@ dist
 
 # Jetbrains
 .idea
+
+# Downloaded images
+data

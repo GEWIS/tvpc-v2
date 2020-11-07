@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/GEWIS/tvpc-v2-backend#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "npm-cli": "^0.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
