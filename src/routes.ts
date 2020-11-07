@@ -8,7 +8,6 @@ export const register = ( app: express.Application ) => {
   });
 
   app.get( '/api/settings', async (req:express.Request, res: express.Response) => {
-    await updateSettings();
     res.json(_settings);
   });
 

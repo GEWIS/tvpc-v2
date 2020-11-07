@@ -138,12 +138,12 @@ export async function updateSettings(): Promise<void> {
       // If it has the correct label ("Posterlist"), it means the card is a reference to a list
       if (card.labels.findIndex(label => label.name === 'Posterlist') > -1) {
         // Find the new list object by looking for it in the mapping of lists.
-        // The list of the name should be taken from the card description to make the cards more distinguishable
-        const newList = lists[card.desc];
+        // The name of the card should equal the name of the list
+        const newList = lists[card.name];
         // Find all cards that belong in this list.
         const newCards = board.cards.filter(newCard => newCard.idList === newList.id);
-        // Take the first word of the card name and extract the type
-        const newTypes = newList.name.split(' ', 1)[0].replace(/[{()}]/g, '').toLowerCase();
+        // The description of the card should contain the type of the list
+        const newTypes = card.desc;
         // Recursion!!! Yay!!!
         await parseListToPosters(newCards, newTypes);
 

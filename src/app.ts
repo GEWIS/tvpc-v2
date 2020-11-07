@@ -1,6 +1,7 @@
 import express, {Request, Response} from 'express';
 import * as routes from './routes';
 import dotenv from 'dotenv';
+import {updateSettings} from "./handlers/TrelloHandler";
 
 dotenv.config();
 
@@ -9,6 +10,18 @@ const port = process.env.PORT;
 
 routes.register(app);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+async function startApp() {
+  console.log('Loading settings from Trello...');
+  await updateSettings();
+
+  app.use('/data', express.static('data'));
+  app.listen(port, () => {
+    console.log(`TVPC backend listening at http://localhost:${port}`);
+  })
+
+  setInterval(function() {
+    updateSettings();
+  }, 2000);
+}
+
+startApp();
