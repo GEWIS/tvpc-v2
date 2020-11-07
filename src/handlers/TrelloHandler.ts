@@ -153,9 +153,14 @@ export async function updateSettings(): Promise<void> {
         // Set the name and due date of the card
         poster.name = card.name;
         poster.due = card.due;
-        // If there are labels, set the label of this poster to be the last label of the card
+        // Set the default timeout to 15 seconds
+        poster.timeout = 15;
+        // Set the default progress bar to 'full'
+        poster.footer = 'full';
+
+        // If there are labels, set the label of this poster to be the first label of the card
         if (card.labels.length > 0) {
-          poster.label = card.labels[card.labels.length - 1].name;
+          poster.label = card.labels[0].name;
         // If there is no label, we simply keep the label empty
         } else {
           poster.label = '';
@@ -180,7 +185,7 @@ export async function updateSettings(): Promise<void> {
         // If the poster type is a photo poster...
         } else if (types === 'photo') {
           // Find the checklist called "photos", that should contain the album ids
-          const index = card.checklists.findIndex(checklist => checklist.name === 'photos');
+          const index = card.checklists.findIndex(checklist => checklist.name.toLowerCase() === 'photos');
           // If such list cannot be found, it does not exist. Throw an error because we cannot continue
           if (index < 0) { throw new TypeError(`Photo card (${card.name}) has no checklist named "photos"`) }
           // Get the checklist for the albums
@@ -203,6 +208,18 @@ export async function updateSettings(): Promise<void> {
         } else {
           // It must be a special implemented poster, so set the type to be the description of the card
           poster.type = card.desc as PosterTypes;
+        }
+
+        // Find the index of the "timeout" checklist if it exists
+        const indexTimeout = card.checklists.findIndex(checklist => checklist.name.toLowerCase() === 'timeout')
+        // If it does exist, take the value of the first checkbox and make it the timeout value
+        if (indexTimeout > -1) {
+          poster.timeout = parseInt(card.checklists[indexTimeout].checkItems[0].name);
+        }
+
+        // If the label "HIDE_BORDER" is attached to this card, set the footer to 'minimal'
+        if (card.labels.findIndex(label => label.name === 'HIDE_BORDER') > -1) {
+          poster.footer = 'minimal';
         }
 
         // Add this poster to the list of final posters.
