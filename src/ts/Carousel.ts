@@ -8,6 +8,7 @@ import InfoBar from './InfoBar.js';
 import {delay} from './Helper.js';
 import PhotoPoster from './posters/PhotoPoster.js';
 import AgendaPoster from './posters/AgendaPoster.js';
+import TrainsPoster from './posters/TrainsPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
@@ -94,6 +95,9 @@ export default class Carousel {
         break;
       case 'photo':
         this.nextPoster = new PhotoPoster(posterToSet.timeout, posterToSet.source);
+        break;
+      case 'train':
+        this.nextPoster = new TrainsPoster(posterToSet.timeout);
         break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);

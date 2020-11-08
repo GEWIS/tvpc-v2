@@ -1,3 +1,5 @@
+import {parseTimeToString} from './Helper.js';
+
 export default class Clock {
   private clock: HTMLElement;
   private loop: number;
@@ -29,21 +31,8 @@ export default class Clock {
    */
   private updateClock() {
     const today = new Date();
-    let hours: string;
-    let minutes: string;
 
-    if (today.getHours() < 10) {
-      hours = '0' + today.getHours().toString();
-    } else {
-      hours = today.getHours().toString();
-    }
-    if (today.getMinutes() < 10) {
-      minutes = '0' + today.getMinutes().toString();
-    } else {
-      minutes = today.getMinutes().toString();
-    }
-
-    this.clock.innerHTML = `${hours}:${minutes}`;
+    this.clock.innerHTML = parseTimeToString(today);
     this.loop = setTimeout(this.updateClock.bind(this), 500);
   }
 }

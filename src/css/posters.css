@@ -323,7 +323,7 @@ body {
 		font-size: 1.7em;
 	}
 
-.ns {
+.tvpc-ns {
 	background-color: rgba(254, 201, 23, 0.9);
 	color: #003082;
 	display: block;
@@ -332,20 +332,33 @@ body {
 	padding: 1.5em 2.5em;
 }
 
-	.ns h1 {
+	.tvpc-ns h1 {
 		font-size: 4em;
 		margin: 0;
 		padding: 0;
 	}
 
-	.ns table {
+	.tvpc-ns table {
 		margin: 0;
 		padding: 0;
 		width: 100%;
 		overflow: hidden;
 	}
+			.tvpc-ns table tr td.tvpc-ns-header {
+				text-align: center;
+				font-size: 2em;
+				background-color: #003082;
+				color: rgba(254, 201, 23, 1);
+				width: 100vw;
+			}
 
-			.ns table tr td {
+			.tvpc-ns table tr td.tvpc-ns-header img {
+				height: 1em;
+				vertical-align: text-bottom;
+				margin-bottom: 9px;
+			}
+
+			.tvpc-ns table tr td {
 				border-color: rgba(255, 255, 0, 0.5);
 				border-style: solid;
 				border-width: 0 0 1px 0;
@@ -354,14 +367,14 @@ body {
 				vertical-align: middle;
 			}
 
-			.ns table tr td.departure {
+			.tvpc-ns table tr td.tvpc-ns-departure {
 				font-size: 2em;
 				padding-left: 0.5em;
 				text-align: left;
 				width: 1px; /*Note the no-wrap*/
 			}
 
-			.ns table tr td.delay {
+			.tvpc-ns table tr td.tvpc-ns-delay {
 				color: #ff0000;
 				font-size: 1.5em;
 				padding: 0 0 0.8em 0;
@@ -369,21 +382,21 @@ body {
 				width: 4%;
 			}
 
-			.ns table tr td.destination {
+			.tvpc-ns table tr td.tvpc-ns-destination {
 				font-size: 2em;
 				vertical-align: middle;
 				display: table;
 				width: 99%; /*Note the no-wrap*/
 			}
 
-			.ns table tr td div.direction {
+			.tvpc-ns table tr td div.tvpc-ns-direction {
 				display: table-cell;
 				vertical-align: middle;
 				width: 1%;
 				white-space: nowrap;
 			}
 
-			.ns table tr td div.info {
+			.tvpc-ns table tr td div.tvpc-ns-info {
 				display: table-cell;
 				vertical-align: middle;
 				font-size: 0.5em;

@@ -25,3 +25,20 @@ export async function doXMLHttpRequest(location: string): Promise<string> {
     xhr.send();
   });
 }
+
+
+export function parseTimeToString(time: Date) {
+  let hours: string;
+  let minutes: string;
+  if (time.getHours() < 10) {
+    hours = '0' + time.getHours().toString();
+  } else {
+    hours = time.getHours().toString();
+  }
+  if (time.getMinutes() < 10) {
+    minutes = '0' + time.getMinutes().toString();
+  } else {
+    minutes = time.getMinutes().toString();
+  }
+  return hours + ':' + minutes;
+}
