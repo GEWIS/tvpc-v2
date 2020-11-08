@@ -107,4 +107,4 @@ dist
 .idea
 
 # API token
-api-token.txt
+src/php/api-token.txt
