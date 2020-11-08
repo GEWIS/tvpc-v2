@@ -154,7 +154,7 @@ export async function updateSettings(): Promise<void> {
         poster.name = card.name;
         poster.due = card.due;
         // Set the default timeout to 15 seconds
-        poster.timeout = 15;
+        poster.timeout = 5;
         // Set the default progress bar to 'full'
         poster.footer = 'full';
 

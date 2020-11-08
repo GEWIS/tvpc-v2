@@ -21,7 +21,7 @@ async function startApp() {
 
   setInterval(function() {
     updateSettings();
-  }, 2000);
+  }, 600000);
 }
 
 startApp();
