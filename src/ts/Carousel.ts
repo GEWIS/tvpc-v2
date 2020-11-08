@@ -86,19 +86,14 @@ export default class Carousel {
       // Includes legacy format without footer
       case 'external':
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer || 'full', posterToSet.source);
-        break;
-      // Legacy format: only here for backwards compatibility
-      case 'poster':
-        this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer || 'full', posterToSet.posters[0]);
+            posterToSet.footer || 'full', posterToSet.source[0]);
         break;
       case 'image':
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer, posterToSet.source);
+            posterToSet.footer, posterToSet.source[0]);
         break;
       case 'photo':
-        this.nextPoster = new PhotoPoster(posterToSet.timeout, posterToSet.galleries);
+        this.nextPoster = new PhotoPoster(posterToSet.timeout, posterToSet.source);
         break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);

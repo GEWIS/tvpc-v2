@@ -18,11 +18,5 @@ export default class Poster {
   footer: 'full' | 'minimal';
 
   /** If the poster is an image or video, the source of this visual */
-  source: string | undefined;
-
-  /** LEGACY format, only here for backwards compatibility */
-  posters: string[] | undefined;
-
-  /** If the poster is a 'photo' type, it has galleries */
-  galleries: string[] | undefined;
+  source: string[];
 }

@@ -9,15 +9,6 @@
             "due":null
         },
         {
-            "type":"agenda",
-            "name":"Agenda",
-            "source":"agenda",
-            "timeout":15,
-            "label_primary":null,
-            "due":null
-
-        },
-        {
             "type":"infima",
             "name":"Infimum",
             "source":"infima",

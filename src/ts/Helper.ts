@@ -1,15 +1,14 @@
+const baseUrl = 'http://localhost:3000';
+
 export function delay(ms: number) {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
 
-export async function doXMLHttpRequest(location: string, token: string | undefined): Promise<string> {
+export async function doXMLHttpRequest(location: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', location, true);
-
-    if (token) {
-      xhr.setRequestHeader('X-Auth-Token', token);
-    }
+    console.log(location);
+    xhr.open('GET', location);
 
     xhr.onload = function() {
       if (this.status >= 200 && this.status < 300) {

@@ -1,5 +1,4 @@
 import ImagePoster from './ImagePoster.js';
-import {SettingsHandler as sh} from '../SettingsHandler.js';
 import {doXMLHttpRequest} from '../Helper.js';
 
 export default class PhotoPoster extends ImagePoster {
@@ -11,7 +10,7 @@ export default class PhotoPoster extends ImagePoster {
   }
 
   private async requestImage(albumId: string): Promise<string> {
-    return await doXMLHttpRequest(`https://gewis.nl/api/photo/album/${albumId}`, sh.settings.token);
+    return await doXMLHttpRequest(`https://gewis.nl/api/photo/album/${albumId}`);
   }
 
   public async preLoad(): Promise<void> {

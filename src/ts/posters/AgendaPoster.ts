@@ -1,6 +1,5 @@
 import BasePoster from './BasePoster.js';
-import {SettingsHandler as sh} from '../SettingsHandler.js';
-import {doXMLHttpRequest} from '../Helper';
+import {doXMLHttpRequest} from '../Helper.js';
 
 export default class AgendaPoster extends BasePoster {
   public constructor(timeout: number) {
@@ -8,12 +7,12 @@ export default class AgendaPoster extends BasePoster {
   }
 
   private async requestActivities(): Promise<string> {
-    return await doXMLHttpRequest('https://gewis.nl/api/activity/list', sh.settings.token);
+    return await doXMLHttpRequest('/api/activity');
   }
 
   public async preLoad(): Promise<void> {
-    const rawActivities = await this.requestActivities();
-    console.log(rawActivities);
+    // const rawActivities = await this.requestActivities();
+    // console.log(rawActivities);
   }
 
   public draw(contentBox: HTMLElement): void {
