@@ -5,6 +5,7 @@ import * as fs from "fs";
 
 export let _settings: object;
 let savedImages: string[] = [];
+let splitFileExtensionReg = /(?:\.([^.]+))?$/;
 
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
@@ -45,6 +46,11 @@ export async function updateSettings(): Promise<void> {
    * @param {string} fileName - new name of the file
    */
   async function downloadImageFiles(fileUrl: string, fileName: string): Promise<void> {
+    // If this file already exists, we do not need to download it again
+    if (fs.existsSync('data/' + fileName)) {
+      return;
+    }
+
     return axios.get(fileUrl, {responseType: 'stream'}).then(response => {
 
       //ensure that the user can call `then()` only when the file has
@@ -88,17 +94,8 @@ export async function updateSettings(): Promise<void> {
     // For each attachment in the list of attachments...
     for (const attachment of attachments) {
       // Create the filename with the correct extension
-      let fileName: string;
-      if (attachment.mimeType === 'image/png') {
-        fileName = attachment.id + '.png'
-      } else if (attachment.mimeType === 'image/jpeg') {
-        fileName = attachment.id + '.jpeg'
-      } else if (attachment.mimeType === 'image/gif') {
-        fileName = attachment.id + '.gif'
-      } else {
-        // The filetype is not supported and therefore we skip this attachment
-        continue;
-      }
+      const fileExtension = splitFileExtensionReg.exec(attachment.name)
+      const fileName = attachment.id + '.' + fileExtension;
 
       // Download this image and wait for it to complete
       await downloadImageFiles(attachment.url, fileName);
@@ -154,7 +151,7 @@ export async function updateSettings(): Promise<void> {
         poster.name = card.name;
         poster.due = card.due;
         // Set the default timeout to 15 seconds
-        poster.timeout = 5;
+        poster.timeout = 15;
         // Set the default progress bar to 'full'
         poster.footer = 'full';
 

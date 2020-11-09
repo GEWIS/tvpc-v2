@@ -15,8 +15,7 @@ export async function getTrains(): Promise<object> {
     for (let i = 0; i < departures.length; i++) {
       let delay: number = 0;
       if (departures[i].plannedDateTime !== departures[i].actualDateTime) {
-        // @ts-ignore
-        delay = (new Date(departures[i].actualDateTime) - new Date(departures[i].plannedDateTime)).getMinutes();
+        delay = new Date(new Date(departures[i].actualDateTime).valueOf() - new Date(departures[i].plannedDateTime).valueOf()).getMinutes();
       }
 
       let routeStations: string[] = [];
