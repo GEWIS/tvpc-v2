@@ -344,6 +344,11 @@ body {
 		width: 100%;
 		overflow: hidden;
 	}
+
+			.tvpc-ns table tr.tvpc-ns-cancelled {
+				opacity: 0.3;
+			}
+
 			.tvpc-ns table tr td.tvpc-ns-header {
 				text-align: center;
 				font-size: 2em;
@@ -380,6 +385,15 @@ body {
 				padding: 0 0 0.8em 0;
 				white-space: nowrap;
 				width: 4%;
+			}
+
+			.tvpc-ns table tr td.tvpc-ns-relative-time {
+				font-size: 1em;
+				padding: 0 0.5em;
+				text-align: left;
+				width: 1px;
+				white-space: nowrap;
+				font-style: italic;
 			}
 
 			.tvpc-ns table tr td.tvpc-ns-destination {
