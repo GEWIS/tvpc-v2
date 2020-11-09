@@ -8,7 +8,7 @@ export default class ImagePoster extends BasePoster {
 
   constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal', sourceUrl: string) {
     super(name, timeout, label, footer);
-    this.sourceUrl = sourceUrl;
+    this.sourceUrl = 'http://localhost:3000/' + sourceUrl;
   }
 
   preLoad(): void {

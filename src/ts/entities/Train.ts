@@ -6,7 +6,6 @@ export interface DepartureMessage {
 export interface Train {
   direction: string,
   plannedDateTime: Date,
-  actualDateTime: Date,
   delay: number,
   trainType: string,
   operator: string,

@@ -42,7 +42,6 @@ export default class TrainsPoster extends BasePoster {
     // If we do it now, it saves us time during drawing
     for (let i = 0; i < this.departures.length; i++) {
       this.departures[i].plannedDateTime = new Date(this.departures[i].plannedDateTime);
-      this.departures[i].actualDateTime = new Date(this.departures[i].actualDateTime);
     }
   }
 
@@ -50,10 +49,15 @@ export default class TrainsPoster extends BasePoster {
     // Get the date rounded to minutes. We use this to calculate the time between now and departure
     const now = new Date(Math.round(new Date().getTime() / 60000 ) * 60000);
 
-    // The first piece of (static) HTML code.
+    // The first piece of HTML code, which includes the animation.
     const pre = `
       <article class="tvpc-ns">
-        <table>
+        <table style="
+          animation-name: tvpc-ns-scroll; 
+          animation-delay: 3s; 
+          animation-iteration-count: infinite; 
+          animation-timing-function: linear;
+          animation-duration: ${Math.max(this.departures.length, this.timeout - 2)}s;">
           <tbody>
             <tr>
               <td colspan="4" class="tvpc-ns-header">
@@ -72,7 +76,7 @@ export default class TrainsPoster extends BasePoster {
       // Rewrite the departure Date object to a time string
       departTime = parseTimeToString(dep.plannedDateTime);
       // Calculate the amount of minutes between train departure and now
-      relativeDepartTime = (dep.actualDateTime.valueOf() - now.valueOf()) / 60000;
+      relativeDepartTime = (dep.plannedDateTime.valueOf() - now.valueOf()) / 60000 + dep.delay;
 
       // Print a very nice table row with all information about this train
       inner += `
@@ -83,7 +87,7 @@ export default class TrainsPoster extends BasePoster {
         <td class="tvpc-ns-destination">
           <div class="tvpc-ns-direction">${dep.direction}</div>
           <div class="tvpc-ns-info"><img src="./src/img/${dep.operator}.svg" alt="${dep.operator}"
-          > ${dep.trainType} ${this.parseStations(dep.routeStations)}`;
+          > <i>${dep.trainType}</i> ${this.parseStations(dep.routeStations)}`;
       // Here is a very nice intermezzo for the messages that are provided by the NS
       dep.messages.forEach((messageObj: DepartureMessage) => {
         // If we have the message "Rijdt niet", the train is cancelled so we translate this manually

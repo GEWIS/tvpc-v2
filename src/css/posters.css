@@ -332,6 +332,11 @@ body {
 	padding: 1.5em 2.5em;
 }
 
+@keyframes tvpc-ns-scroll {
+	from {transform: translateY(0)}
+	to {transform: translateY(calc(-100% + 100vh))}
+}
+
 	.tvpc-ns h1 {
 		font-size: 4em;
 		margin: 0;
