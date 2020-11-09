@@ -1,8 +1,11 @@
-/*@import "https://fonts.googleapis.com/css?family=Source+Code+Pro";
-@import "https://fonts.googleapis.com/css?family=Raleway:400,700";*/
+@import "https://fonts.googleapis.com/css?family=Source+Code+Pro";
+@import "https://fonts.googleapis.com/css?family=Raleway:400,700";
+@import "https://fonts.googleapis.com/css?family=Lato";
 
 * {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 body,
@@ -19,7 +22,7 @@ html {
 }
 
 body {
-    transition: background 1 ease-in-out;
+    transition: background ease-in-out;
     color: #ffffff;
     font-family: "Raleway", sans-serif;
     font-size: 1.75em;
@@ -44,6 +47,7 @@ body {
 
 #tvpc-bottom-bar {
     display: table;
+    table-layout: fixed;
     position: absolute;
     top: calc(100% - 85px);
     left: 0;
@@ -98,16 +102,14 @@ body {
 
 #tvpc-explanation {
     transition: opacity 500ms;
-}
-
-#tvpc-explanation-text {
-    height: 30px;
-    width: 100%;
+    font-size: 1.8em;
 }
 
 #tvpc-time {
     padding: 0 30px 0 0;
-    width: 50px;
+    width: 100px;
     font-size: 1.8em;
     text-align: right;
+    font-family: "Lato", monospace;
+    font-weight: bold;
 }

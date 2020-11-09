@@ -7,7 +7,6 @@ export function delay(ms: number) {
 export async function doXMLHttpRequest(location: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    console.log(location);
     xhr.open('GET', location);
 
     xhr.onload = function() {

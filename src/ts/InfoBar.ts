@@ -78,7 +78,7 @@ export default class InfoBar {
   public async startProgressBar(time: number, newSize: 'full' | 'minimal'): Promise<void> {
     await this.switchProgressBar('start', newSize);
 
-    this.progressBar.style.transition = `transform ${time}s ease`;
+    this.progressBar.style.transition = `transform ${time}s cubic-bezier(0.2, 0, 0.8, 1)`;
     this.progressBar.style.transform = 'translateX(0)';
   }
 }
