@@ -81,25 +81,28 @@ export default class TrainsPoster extends BasePoster {
       // Print a very nice table row with all information about this train
       inner += `
       <tr class="${dep.cancelled ? 'tvpc-ns-cancelled' : '' }">
-        <td class="tvpc-ns-departure">${departTime}</td>
-        <td class="tvpc-ns-delay">${dep.delay === 0 ? '' : '+' + dep.delay.toString()}</td>
-        <td class="tvpc-ns-relative-time">(in ${relativeDepartTime}m)</td>
-        <td class="tvpc-ns-destination">
+        <td class="tvpc-ns-departure"><div>${departTime}<div></td>
+        <td class="tvpc-ns-delay"><div>${dep.delay === 0 ? '' : '+' + dep.delay.toString()}</div></td>
+        <td class="tvpc-ns-relative-time"><div>(in ${relativeDepartTime}m)</div></td>
+        <td class="tvpc-ns-destination"><div>
           <div class="tvpc-ns-direction">${dep.direction}</div>
           <div class="tvpc-ns-info"><img src="./src/img/${dep.operator}.svg" alt="${dep.operator}"
           > <i>${dep.trainType}</i> ${this.parseStations(dep.routeStations)}`;
       // Here is a very nice intermezzo for the messages that are provided by the NS
       dep.messages.forEach((messageObj: DepartureMessage) => {
         // If we have the message "Rijdt niet", the train is cancelled so we translate this manually
-        if (messageObj.message == 'Rijdt niet') {
+        if (messageObj.message === 'Rijdt niet') {
           inner += '<br><span style="color: red">CANCELLED</span>';
         // Otherwise, just add the message to the HTML
+        } else if (messageObj.message.startsWith('Rijdt niet')) {
+          inner += `<br><span style="color: red">CANCELLED</span>: ${messageObj.message}`;
         } else {
           inner += `<br>${messageObj.message}`;
         }
       });
       // End this row of the table with its closing tags
       inner += `
+            </div>
           </div>
         </td>
       </tr>`;
