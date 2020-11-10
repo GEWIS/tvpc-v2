@@ -56,15 +56,18 @@ export default class Carousel {
    */
   private async hidePoster() {
     this.contentBox.style.opacity = '0';
-    await delay(500);
+    this.infoBar.hideLabel();
+    await delay(600);
   }
 
   /**
    * Show the contents of the contentBox, aka the poster
+   * @param {string} label - The label that should been shown in the infoBar
    */
-  private async showPoster() {
+  private async showPoster(label: string) {
     this.contentBox.style.opacity = '1';
-    await delay(250);
+    this.infoBar.showLabel(label);
+    await delay(500);
   }
 
   /**
@@ -121,7 +124,7 @@ export default class Carousel {
     this.nextPoster.draw(this.contentBox);
     this.currentPoster = this.nextPoster;
 
-    this.showPoster();
+    this.showPoster(this.currentPoster.label);
     await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
     this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
     await this.loadNextPoster();

@@ -81,4 +81,22 @@ export default class InfoBar {
     this.progressBar.style.transition = `transform ${time}s cubic-bezier(0.2, 0, 0.8, 1)`;
     this.progressBar.style.transform = 'translateX(0)';
   }
+
+  /**
+   * Make the label invisible
+   */
+  public hideLabel() {
+    const label = document.getElementById('tvpc-label');
+    label.style.opacity = '0';
+  }
+
+  /**
+   * Make the label visible again
+   * @param {string} text - The text of the label
+   */
+  public showLabel(text: string) {
+    const label = document.getElementById('tvpc-label');
+    label.innerHTML = text;
+    label.style.opacity = '1';
+  }
 }

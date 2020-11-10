@@ -1,31 +1,15 @@
 import BasePoster from './BasePoster.js';
+import {doXMLHttpRequest} from '../Helper.js';
 
 export default class InfimaPoster extends BasePoster {
   private parsedInfima: string;
 
   public constructor(timeout: number) {
-    super('InfimaPoster', timeout, 'InfimaPoster', 'full');
+    super('InfimaPoster', timeout, '', 'full');
   };
 
-  private getInfima(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', './src/php/infima.php');
-
-      xhr.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(xhr.response);
-        } else {
-          reject(new Error(`${this.status}: ${this.statusText}`));
-        }
-      };
-
-      xhr.onerror = function() {
-        reject(new Error(`${this.status}: ${this.statusText}`));
-      };
-
-      xhr.send();
-    });
+  private async getInfima(): Promise<string> {
+    return await doXMLHttpRequest('./src/php/infima.php');
   }
 
   async preLoad(): Promise<void> {
