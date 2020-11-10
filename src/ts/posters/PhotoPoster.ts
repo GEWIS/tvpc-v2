@@ -1,11 +1,14 @@
-import ImagePoster from './ImagePoster.js';
 import {doXMLHttpRequest} from '../Helper.js';
+import BasePoster from './BasePoster.js';
 
-export default class PhotoPoster extends ImagePoster {
+export default class PhotoPoster extends BasePoster {
   private readonly posterNr: number;
+  private sourceUrl: string;
+  // @ts-ignore
+  private image: Image;
 
   public constructor(timeout: number, posterNr: number) {
-    super('Photo', timeout, undefined, 'full', undefined);
+    super('Photo', timeout, undefined, 'full');
     this.posterNr = posterNr;
   }
 
@@ -17,34 +20,17 @@ export default class PhotoPoster extends ImagePoster {
     const json = (await this.requestImageObj(this.posterNr));
     const imageObj = JSON.parse(json);
     this.label = imageObj.label;
-    this.sourceUrl = imageObj.sourceUrl;
 
-    super.preLoad();
+    this.image = new Image();
+    this.image.src = imageObj.sourceUrl;
   }
 
   public draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
       <article class="tvpc-photo">
-        <div class="tvpc-photo-background-image" style="background-image: url('${super.getImage().src}')"></div>
-        <div class="tvpc-photo-content" style="background-image: url('${super.getImage().src}')"></div>
+        <div class="tvpc-photo-background-image" style="background-image: url('${this.image.src}')"></div>
+        <div class="tvpc-photo-content" style="background-image: url('${this.image.src}')"></div>
       </article>
     `;
   }
-
-  /* public async preLoad(): Promise<void> {
-    const albumId = this.galleries[Math.floor(Math.random() * this.galleries.length)];
-    const json = await this.requestImage(albumId);
-    const result = JSON.parse(json);
-
-    this.label = result.album.name;
-    const nrOfPhotos = result.photos.length;
-    const photo = result.photos[Math.floor(Math.random() * nrOfPhotos)];
-    this.sourceUrl = '/data/' + photo.path;
-
-    super.preLoad();
-  } */
-
-  /*
-   * Function draw() is inherited from ImagePoster
-   */
 }

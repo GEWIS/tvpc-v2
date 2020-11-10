@@ -87,14 +87,13 @@ export default class Carousel {
       case 'logo':
         this.nextPoster = new LogoPoster(posterToSet.timeout);
         break;
-      // Includes legacy format without footer
       case 'external':
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer || 'full', posterToSet.source[0]);
+            posterToSet.footer, posterToSet.source[0]);
         break;
       case 'image':
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer, posterToSet.source[0]);
+            posterToSet.footer, posterToSet.source);
         break;
       case 'photo':
         this.nextPoster = new PhotoPoster(posterToSet.timeout, this.currentPosterNr);
