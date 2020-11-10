@@ -11,14 +11,19 @@ export default class ImagePoster extends BasePoster {
     this.sourceUrl = 'http://localhost:3000/' + sourceUrl;
   }
 
+  protected getImage() {
+    return this.image;
+  }
+
   preLoad(): void {
     this.image = new Image();
     this.image.src = this.sourceUrl;
+    console.log(this.image.src);
   }
 
   draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
-    <article class="photo" style="background-image: url('${this.image.src}')">
+    <article style="background-image: url('${this.image.src}'); background-position: center; ">
     </article>
     `;
   }

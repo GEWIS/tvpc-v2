@@ -8,7 +8,7 @@ export default class TrainsPoster extends BasePoster {
     super('Train Departures', timeout, 'Train departures', 'full');
   }
 
-  private async requestActivities(): Promise<string> {
+  private async requestDepartures(): Promise<string> {
     return await doXMLHttpRequest('http://localhost:3000/api/trains');
   }
 
@@ -35,7 +35,7 @@ export default class TrainsPoster extends BasePoster {
   }
 
   async preLoad(): Promise<void> {
-    const rawDepartures = await this.requestActivities();
+    const rawDepartures = await this.requestDepartures();
     this.departures = JSON.parse(rawDepartures) as Train[];
 
     // The datetime JSON is not automatically parsed, so this has to be done manually.

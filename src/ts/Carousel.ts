@@ -97,7 +97,7 @@ export default class Carousel {
             posterToSet.footer, posterToSet.source[0]);
         break;
       case 'photo':
-        this.nextPoster = new PhotoPoster(posterToSet.timeout, posterToSet.source);
+        this.nextPoster = new PhotoPoster(posterToSet.timeout, this.currentPosterNr);
         break;
       case 'train':
         this.nextPoster = new TrainsPoster(posterToSet.timeout);
