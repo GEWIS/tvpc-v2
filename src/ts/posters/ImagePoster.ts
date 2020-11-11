@@ -4,10 +4,13 @@ export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
   // @ts-ignore
   private image: Image;
+  private shouldUseBaseUrl: boolean = false
 
-  constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal', sourceUrls: string[]) {
+  constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
+      sourceUrls: string[], baseUrl: boolean = true) {
     super(name, timeout, label, footer);
     this.sourceUrls = sourceUrls;
+    this.shouldUseBaseUrl = baseUrl;
   }
 
   preLoad(): void {
@@ -15,7 +18,7 @@ export default class ImagePoster extends BasePoster {
     // Of course, there could be only one poster in the list. Then the choice is easy
     const chosenPoster = this.sourceUrls[Math.floor(Math.random() * this.sourceUrls.length)];
     this.image = new Image();
-    this.image.src = 'http://localhost:3000/' + chosenPoster;
+    this.image.src = (this.shouldUseBaseUrl ? 'http://localhost:3000/' : '') + chosenPoster;
     console.log(this.image.src);
   }
 

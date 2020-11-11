@@ -45,7 +45,15 @@ export default class AgendaPoster extends BasePoster {
         <ul>`;
 
     let inner = '';
+    let cancelled: boolean = false;
     for (let i = 0; i < this.activities.length; i++) {
+      if (this.activities[i].nameEn.includes('[CANCELLED]') || this.activities[i].nameEn.includes('- CANCELLED')) {
+        cancelled = true;
+        this.activities[i].nameEn = this.activities[i].nameEn.slice(0, -11);
+      } else {
+        cancelled = false;
+      }
+
       inner += `
         <li>
             <span class="fa-stack">
@@ -55,7 +63,7 @@ export default class AgendaPoster extends BasePoster {
                         <span class="month">${this.monthNames[this.activities[i].beginTime.date.getMonth()]}</span>
                     </span>
             </span>
-                <h2 class="activity-name nostrike">${this.activities[i].nameEn}</h2>`;
+                <h2 class="activity-name ${cancelled ? 'strike' : 'nostrike'}">${this.activities[i].nameEn}</h2>`;
       if (this.activities[i].isMyFuture) {
         inner += `<img class="myfuture" src="./src/img/myfuture_white.png">`;
       }

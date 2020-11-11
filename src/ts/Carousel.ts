@@ -14,6 +14,7 @@ export default class Carousel {
   private currentPosterNr: number;
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
+  private stukPoster: ImagePoster;
   private loop: number;
   private readonly infoBar: InfoBar;
   private readonly contentBox: HTMLElement;
@@ -22,10 +23,16 @@ export default class Carousel {
 
   private constructor(infoBar: InfoBar, contentBox: HTMLElement) {
     this.infoBar = infoBar;
-    this.createNextPoster(0);
-    this.currentPoster = this.nextPoster;
-    this.currentPosterNr = 0;
     this.contentBox = contentBox;
+
+    this.stukPoster = new ImagePoster('It\'s broken!', sh.settings.defaultTimeout,
+        '', 'full', ['src/img/AViCo het is stuk.png'], false);
+    this.stukPoster.preLoad();
+    this.nextPoster = new ImagePoster('AViCo TVPC V2', sh.settings.defaultTimeout,
+        'AViCo TVPC V2', 'full', ['src/img/startPoster.png'], false);
+    this.nextPoster.preLoad();
+
+    this.currentPosterNr = Math.floor(Math.random() * sh.settings.posters.length);
   };
 
   public static getInstance(infoBar: InfoBar, contentBox: HTMLElement) {
@@ -118,13 +125,26 @@ export default class Carousel {
    * Draw the next poster and load pre-load the next next poster
    */
   public async drawPoster() {
-    await this.infoBar.resetProgressBar(this.nextPoster.footer);
-    await this.hidePoster();
-    this.nextPoster.draw(this.contentBox);
-    this.currentPoster = this.nextPoster;
+    try {
+      // Let's try to draw the next poster, and if it doesn't work, we show something else on the screen
+      await this.infoBar.resetProgressBar(this.nextPoster.footer);
+      await this.hidePoster();
+      this.nextPoster.draw(this.contentBox);
+      this.currentPoster = this.nextPoster;
 
-    this.showPoster(this.currentPoster.label);
-    await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
+      this.showPoster(this.currentPoster.label);
+      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
+    } catch {
+      // If something goes wrong drawing the current poster, we draw the "AVICO HET IS STUK" poster
+      this.stukPoster.draw(this.contentBox);
+      this.currentPoster = this.stukPoster;
+      this.showPoster(this.currentPoster.label);
+      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
+    }
+
+    // This "should" always work, and if it doesn't, we are much, much more screwed.
+    // Therefore, this piece runs outside the try-catch box
+    // If preloading the poster for example fails, we need to show the stukPoster anyway, so save the problem for later
     this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
     await this.loadNextPoster();
     await this.nextPoster.preLoad();
