@@ -2,16 +2,19 @@ import axios from 'axios'
 import {IBoard, ICard, IList, ICheckItem, IAttachment} from '../entities/trello';
 import {Poster, PosterTypes} from '../entities/Poster';
 import * as fs from "fs";
+import {Settings} from "../entities/Settings";
 
-export let _settings: object;
+export let _settings: Settings;
 let savedImages: string[] = [];
-let splitFileExtensionReg = /(?:\.([^.]+))?$/;
 
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
  * form of caching to prevent a too high load on the server
  */
 export async function updateSettings(): Promise<void> {
+  let defaultTimeout = 15;
+  let defaultFooter = 'full';
+
   // Trello API endpoint
   const baseUrl = 'https://api.trello.com/1/';
   const config = {
@@ -39,6 +42,17 @@ export async function updateSettings(): Promise<void> {
   const posters = [] as Poster[];
   const cardsInBaseList = board.cards.filter(card => card.idList === baseList.id);
   const newlySavedImages: string[] = [];
+
+  // Find the settings card and load all the default settings
+  const settingsList = lists['Settings'];
+  const cardsInSettingsList = board.cards.filter(card => card.idList === settingsList.id);
+  cardsInSettingsList.forEach(function (card: ICard) {
+    if (card.name === 'timeout') {
+      defaultTimeout = parseInt(card.desc);
+    } else if (card.name === 'footer') {
+      defaultFooter = card.desc;
+    }
+  })
 
   /**
    * Download a file and save it with the given filename in the /data/ directory
@@ -77,6 +91,18 @@ export async function updateSettings(): Promise<void> {
   }
 
   /**
+   * Get the file extension that belongs to a file name
+   * @param {string} fileName - The full file name
+   */
+  function getFileExtension(fileName: string): string {
+    const parts = fileName.split('.');
+    if (parts.length === 0) {
+      throw new TypeError('The given filename does not include a file extension');
+    }
+    return parts[parts.length - 1];
+  }
+
+  /**
    * Given a card, get all the attachments and save only the images to the disk
    * @param {string} cardId - ID of the card. Used to download all attachment objects from the Trello API
    */
@@ -94,7 +120,7 @@ export async function updateSettings(): Promise<void> {
     // For each attachment in the list of attachments...
     for (const attachment of attachments) {
       // Create the filename with the correct extension
-      const fileExtension = splitFileExtensionReg.exec(attachment.name)
+      const fileExtension = getFileExtension(attachment.name);
       const fileName = attachment.id + '.' + fileExtension;
 
       // Download this image and wait for it to complete
@@ -151,9 +177,9 @@ export async function updateSettings(): Promise<void> {
         poster.name = card.name;
         poster.due = card.due;
         // Set the default timeout to 15 seconds
-        poster.timeout = 15;
+        poster.timeout = defaultTimeout;
         // Set the default progress bar to 'full'
-        poster.footer = 'full';
+        poster.footer = defaultFooter;
 
         // If there are labels, set the label of this poster to be the first label of the card
         if (card.labels.length > 0) {
@@ -219,6 +245,13 @@ export async function updateSettings(): Promise<void> {
           poster.footer = 'minimal';
         }
 
+        // If there is a checklist named "timeout" in this card, this means a custom timeout value has been set
+        const customTimeoutCList = card.checklists.findIndex(checklist => checklist.name === 'timeout');
+        if (customTimeoutCList > -1) {
+          // Set the timeout to the value of the custom timeout card
+          poster.timeout = parseInt(card.checklists[customTimeoutCList].checkItems[0].name);
+        }
+
         // Add this poster to the list of final posters.
         posters.push(poster);
       }
@@ -230,5 +263,8 @@ export async function updateSettings(): Promise<void> {
   // Clean the disk of image posters that are not used anymore
   removeUnusedAttachments();
   // Put this list of posters in the settings object
-  _settings = {posters: posters};
+  _settings = {
+    posters: posters,
+    defaultTimeout: defaultTimeout,
+  } as Settings;
 }

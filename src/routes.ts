@@ -1,6 +1,7 @@
 import * as express from 'express';
 import {getTrains} from "./handlers/NSHandler";
 import {updateSettings, _settings} from "./handlers/TrelloHandler";
+import {getPhoto} from "./handlers/GEWISHandler";
 
 export const register = ( app: express.Application ) => {
   app.get( '/api', (req: express.Request, res: express.Response) => {
@@ -19,9 +20,10 @@ export const register = ( app: express.Application ) => {
     res.status(501).json({501: 'Not yet implemented'});
   });
 
-  app.get('/api/photo', (req: express.Request, res: express.Response) => {
+  app.get('/api/photo', async (req: express.Request, res: express.Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.json(await getPhoto(parseInt(req.query.id.toString())));
   });
 
   app.get( '/api/trains', async (req: express.Request, res: express.Response) => {
