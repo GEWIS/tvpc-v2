@@ -1,0 +1,3 @@
+special-vendored-path/* linguist-vendored
+src/css/fontAwesome.css -linguist-vendored
+src/webfonts -linguist-vendored
