@@ -52,12 +52,7 @@ export default class TrainsPoster extends BasePoster {
     // The first piece of HTML code, which includes the animation.
     const pre = `
       <article class="tvpc-ns">
-        <table style="
-          animation-name: tvpc-ns-scroll; 
-          animation-delay: 3s; 
-          animation-iteration-count: infinite; 
-          animation-timing-function: linear;
-          animation-duration: ${Math.max(this.departures.length, this.timeout - 2)}s;">
+        <table id="tvpc-ns-table">
           <tbody>
             <tr>
               <td colspan="4" class="tvpc-ns-header">
@@ -69,18 +64,19 @@ export default class TrainsPoster extends BasePoster {
 
     // Some variables that we use during the printing of the HTML code
     let inner = '';
-    let departTime: string;
-    let relativeDepartTime: number;
-    // For each departure..
-    this.departures.forEach((dep: Train) => {
-      // Rewrite the departure Date object to a time string
-      departTime = parseTimeToString(dep.plannedDateTime);
-      // Calculate the amount of minutes between train departure and now
-      relativeDepartTime = (dep.plannedDateTime.valueOf() - now.valueOf()) / 60000 + dep.delay;
+    if (this.departures.length > 0) {
+      let departTime: string;
+      let relativeDepartTime: number;
+      // For each departure..
+      this.departures.forEach((dep: Train) => {
+        // Rewrite the departure Date object to a time string
+        departTime = parseTimeToString(dep.plannedDateTime);
+        // Calculate the amount of minutes between train departure and now
+        relativeDepartTime = (dep.plannedDateTime.valueOf() - now.valueOf()) / 60000 + dep.delay;
 
-      // Print a very nice table row with all information about this train
-      inner += `
-      <tr class="${dep.cancelled ? 'tvpc-ns-cancelled' : '' }">
+        // Print a very nice table row with all information about this train
+        inner += `
+      <tr class="${dep.cancelled ? 'tvpc-ns-cancelled' : ''}">
         <td class="tvpc-ns-departure"><div>${departTime}<div></td>
         <td class="tvpc-ns-delay"><div>${dep.delay === 0 ? '' : '+' + dep.delay.toString()}</div></td>
         <td class="tvpc-ns-relative-time"><div>(in ${relativeDepartTime}m)</div></td>
@@ -88,25 +84,35 @@ export default class TrainsPoster extends BasePoster {
           <div class="tvpc-ns-direction">${dep.direction}</div>
           <div class="tvpc-ns-info"><img src="./src/img/${dep.operator}.svg" alt="${dep.operator}"
           > <i>${dep.trainType}</i> ${this.parseStations(dep.routeStations)}`;
-      // Here is a very nice intermezzo for the messages that are provided by the NS
-      dep.messages.forEach((messageObj: DepartureMessage) => {
-        // If we have the message "Rijdt niet", the train is cancelled so we translate this manually
-        if (messageObj.message === 'Rijdt niet') {
-          inner += '<br><span style="color: red">CANCELLED</span>';
-        // Otherwise, just add the message to the HTML
-        } else if (messageObj.message.startsWith('Rijdt niet')) {
-          inner += `<br><span style="color: red">CANCELLED</span>: ${messageObj.message}`;
-        } else {
-          inner += `<br>${messageObj.message}`;
-        }
-      });
-      // End this row of the table with its closing tags
-      inner += `
+        // Here is a very nice intermezzo for the messages that are provided by the NS
+        dep.messages.forEach((messageObj: DepartureMessage) => {
+          // If we have the message "Rijdt niet", the train is cancelled so we translate this manually
+          if (messageObj.message === 'Rijdt niet') {
+            inner += '<br><span style="color: red">CANCELLED</span>';
+            // Otherwise, just add the message to the HTML
+          } else if (messageObj.message.startsWith('Rijdt niet')) {
+            inner += `<br><span style="color: red">CANCELLED</span>: ${messageObj.message}`;
+          } else {
+            inner += `<br>${messageObj.message}`;
+          }
+        });
+        // End this row of the table with its closing tags
+        inner += `
             </div>
           </div>
         </td>
       </tr>`;
-    });
+      });
+    } else {
+      inner = `
+        <tr>
+          <td colspan="4" style="text-align: center;">
+            <span>
+              Oh oh! Either there are no departing trains in the upcoming hour, or something is broken...
+            </span>
+          </td>
+        </tr>`;
+    }
 
     // We have to end the table as well
     const post = `
@@ -117,5 +123,18 @@ export default class TrainsPoster extends BasePoster {
 
     // Print it to the HTML code!
     contentBox.innerHTML = pre + inner + post;
+
+    // If the table is longer than the page, enable scorlling
+    const trainsTable = document.getElementById('tvpc-ns-table');
+    console.log(trainsTable.clientHeight);
+    console.log(document.documentElement.clientHeight);
+    if (trainsTable.clientHeight > document.documentElement.clientHeight) {
+      trainsTable.style.cssText = `
+        animation-name: tvpc-ns-scroll; 
+        animation-delay: 3s; 
+        animation-iteration-count: infinite; 
+        animation-timing-function: linear;
+        animation-duration: ${Math.max(this.departures.length, this.timeout - 2)}s;`;
+    }
   }
 }
