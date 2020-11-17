@@ -14,6 +14,7 @@ let savedImages: string[] = [];
 export async function updateSettings(): Promise<void> {
   let defaultTimeout = 15;
   let defaultFooter = 'full';
+  const now = new Date();
 
   // Trello API endpoint
   const baseUrl = 'https://api.trello.com/1/';
@@ -171,11 +172,15 @@ export async function updateSettings(): Promise<void> {
         await parseListToPosters(newCards, newTypes);
 
       } else {
+        // If the card has a due date and this due date is in the past
+        if (card.due && new Date(card.due) < now) {
+          // Skip this card
+          continue;
+        }
         // Create an empty poster object
         const poster = {} as Poster;
         // Set the name and due date of the card
         poster.name = card.name;
-        poster.due = card.due;
         // Set the default timeout to 15 seconds
         poster.timeout = defaultTimeout;
         // Set the default progress bar to 'full'

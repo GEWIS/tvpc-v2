@@ -11,11 +11,17 @@ export async function getTrains(): Promise<object> {
     const departures = (await axios.get('https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures' +
       '?station=EHV&maxJourneys=40', config)).data.payload.departures;
     let result = [];
+    const minDepartTime = new Date((new Date()).getTime() + 8 * 60000);
 
     for (let i = 0; i < departures.length; i++) {
+      const actualDepartTime = new Date(departures[i].actualDateTime)
+      if (minDepartTime > actualDepartTime) {
+        continue;
+      }
+
       let delay: number = 0;
       if (departures[i].plannedDateTime !== departures[i].actualDateTime) {
-        delay = new Date(new Date(departures[i].actualDateTime).valueOf() - new Date(departures[i].plannedDateTime).valueOf()).getMinutes();
+        delay = new Date(actualDepartTime.valueOf() - new Date(departures[i].plannedDateTime).valueOf()).getMinutes();
       }
 
       let routeStations: string[] = [];
