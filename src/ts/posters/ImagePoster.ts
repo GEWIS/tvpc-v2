@@ -1,4 +1,5 @@
 import BasePoster from './BasePoster.js';
+import {baseUrl} from '../Helper.js';
 
 export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
@@ -18,8 +19,7 @@ export default class ImagePoster extends BasePoster {
     // Of course, there could be only one poster in the list. Then the choice is easy
     const chosenPoster = this.sourceUrls[Math.floor(Math.random() * this.sourceUrls.length)];
     this.image = new Image();
-    this.image.src = (this.shouldUseBaseUrl ? 'http://localhost:3000/' : '') + chosenPoster;
-    console.log(this.image.src);
+    this.image.src = (this.shouldUseBaseUrl ? baseUrl : '') + chosenPoster;
   }
 
   draw(contentBox: HTMLElement): void {

@@ -9,7 +9,7 @@ export default class TrainsPoster extends BasePoster {
   }
 
   private async requestDepartures(): Promise<string> {
-    return await doXMLHttpRequest('http://localhost:3000/api/trains');
+    return await doXMLHttpRequest('api/trains', true);
   }
 
   private parseStations(stations: string[]): string {

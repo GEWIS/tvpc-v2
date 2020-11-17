@@ -20,7 +20,7 @@ async function init() {
   };
   document.getElementById('tvpc-explanation').onclick = () => {
     carousel.stopLoop();
-  }
+  };
   console.log('READY!');
 }
 

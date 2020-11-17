@@ -3,19 +3,10 @@ import {doXMLHttpRequest} from './Helper.js';
 
 export class SettingsHandler {
   private static _settings: Settings;
+  private static initialized = false;
 
   static get settings(): Settings {
     return this._settings;
-  }
-
-  /**
-   * Function to perform a GET request on a file
-   * @param {string} location - HTTP(s) location of the file
-   * @return {string} the unparsed contents of the TXT file
-   * @return {Error} something went wrong with getting the file
-   */
-  private static async getTXTFileContents(location: string): Promise<string> {
-    return await doXMLHttpRequest(location);
   }
 
   /**
@@ -30,13 +21,42 @@ export class SettingsHandler {
     return parsedSettings as Settings;
   }
 
+  private static async updateSettings(): Promise<Settings> {
+    const settingsString = await doXMLHttpRequest('api/settings', true);
+    const settings = this.parseSettings(settingsString);
+    console.log(settings);
+    return settings;
+  }
+
+  /*
+  Right now, the initialize() and checkForUpdate() functions do basically the same.
+  However, for future reference these functions have been split to allow for easy
+  adapting for future functionality
+   */
+
   /**
-   * Initialize this SettingsHandler class, to actually save the settings
+   * Initialize this SettingsHandler class. This function can only be called once, because
+   * it also sets the initialized and lastUpdate variables. When the settings need to be
+   * updated, use the checkForUpdate() function.
    */
   public static async initialize(): Promise<void> {
-    const settingsString = await this.getTXTFileContents('http://localhost:3000/api/settings');
-    this._settings = this.parseSettings(settingsString);
-    console.log(this._settings);
+    if (!this.initialized) {
+      this._settings = await this.updateSettings();
+      this.initialized = true;
+    } else {
+      throw new Error('Settings have already been initialized');
+    }
+  }
+
+  /**
+   * If enough time has passed, get the most current settings object from the backend
+   */
+  public static async checkForUpdate(): Promise<void> {
+    if (!this.initialized) {
+      throw new Error('Please initialize the SettingsHandler first');
+    }
+
+    this._settings = await this.updateSettings();
   }
 }
 

@@ -12,10 +12,12 @@ import TrainsPoster from './posters/TrainsPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
+  private loop: number;
+
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
-  private stukPoster: ImagePoster;
-  private loop: number;
+  private readonly stukPoster: ImagePoster;
+
   private readonly infoBar: InfoBar;
   private readonly contentBox: HTMLElement;
 
@@ -85,14 +87,15 @@ export default class Carousel {
     const posterToSet = sh.settings.posters[posterNr];
 
     switch (posterToSet.type) {
+      case 'logo':
+        this.nextPoster = new LogoPoster(posterToSet.timeout);
+        sh.checkForUpdate();
+        break;
       case 'agenda':
         this.nextPoster = new AgendaPoster(posterToSet.timeout);
         break;
       case 'infima':
         this.nextPoster = new InfimaPoster(posterToSet.timeout);
-        break;
-      case 'logo':
-        this.nextPoster = new LogoPoster(posterToSet.timeout);
         break;
       case 'external':
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
@@ -134,7 +137,8 @@ export default class Carousel {
 
       this.showPoster(this.currentPoster.label);
       await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
-    } catch {
+    } catch (error) {
+      console.log(error);
       // If something goes wrong drawing the current poster, we draw the "AVICO HET IS STUK" poster
       this.stukPoster.draw(this.contentBox);
       this.currentPoster = this.stukPoster;

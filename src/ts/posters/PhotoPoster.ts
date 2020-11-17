@@ -13,7 +13,7 @@ export default class PhotoPoster extends BasePoster {
   }
 
   private async requestImageObj(posterNr: number): Promise<string> {
-    return await doXMLHttpRequest(`http://localhost:3000/api/photo?id=${posterNr}`);
+    return await doXMLHttpRequest(`api/photo?id=${posterNr}`, true);
   }
 
   public async preLoad(): Promise<void> {

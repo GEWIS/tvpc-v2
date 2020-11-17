@@ -1,13 +1,21 @@
-const baseUrl = 'http://localhost:3000';
+export const baseUrl = 'https://tvpc.gewis.nl/';
 
 export function delay(ms: number) {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
 
-export async function doXMLHttpRequest(location: string): Promise<string> {
+export async function doXMLHttpRequest(location: string, useBaseUrl: boolean = false): Promise<string> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', location);
+
+    let url;
+    if (useBaseUrl) {
+      url = baseUrl + location;
+    } else {
+      url = location;
+    }
+
+    xhr.open('GET', url);
 
     xhr.onload = function() {
       if (this.status >= 200 && this.status < 300) {
