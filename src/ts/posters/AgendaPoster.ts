@@ -59,7 +59,7 @@ export default class AgendaPoster extends BasePoster {
             <span class="fa-stack">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <span class="fa-stack-1x calendar-text">
-                        <strong class="day">${this.activities[i].beginTime.date.getDay()}</strong>
+                        <strong class="day">${this.activities[i].beginTime.date.getDate()}</strong>
                         <span class="month">${this.monthNames[this.activities[i].beginTime.date.getMonth()]}</span>
                     </span>
             </span>
