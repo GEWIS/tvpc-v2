@@ -4,14 +4,13 @@ import {Poster, PosterTypes} from '../entities/Poster';
 import * as fs from "fs";
 import {Settings} from "../entities/Settings";
 
-export let _settings: Settings;
 let savedImages: string[] = [];
 
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
  * form of caching to prevent a too high load on the server
  */
-export async function updateSettings(): Promise<void> {
+export async function updateSettings(): Promise<Settings> {
   let defaultTimeout = 15;
   let defaultFooter = 'full';
   const now = new Date();
@@ -184,7 +183,7 @@ export async function updateSettings(): Promise<void> {
         // Set the default timeout to 15 seconds
         poster.timeout = defaultTimeout;
         // Set the default progress bar to 'full'
-        poster.footer = defaultFooter;
+        poster.footer = 'full';
 
         // If there are labels, set the label of this poster to be the first label of the card
         if (card.labels.length > 0) {
@@ -192,6 +191,8 @@ export async function updateSettings(): Promise<void> {
         // If there is no label, we simply keep the label empty
         } else {
           poster.label = '';
+          // If we have no label set, we take the default footer
+          poster.footer = defaultFooter;
         }
         // Create an empty array for the source strings/URLs
         poster.source = [];
@@ -268,8 +269,9 @@ export async function updateSettings(): Promise<void> {
   // Clean the disk of image posters that are not used anymore
   removeUnusedAttachments();
   // Put this list of posters in the settings object
-  _settings = {
+  return {
     posters: posters,
     defaultTimeout: defaultTimeout,
+    defaultFooter: defaultFooter
   } as Settings;
 }

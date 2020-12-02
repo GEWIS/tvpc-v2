@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {getTrains} from "./handlers/NSHandler";
-import {updateSettings, _settings} from "./handlers/TrelloHandler";
+import {_settings} from "./handlers/SettingsHandler";
 import {getPhoto} from "./handlers/GEWISHandler";
 
 export const register = ( app: express.Application ) => {

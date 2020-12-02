@@ -1,7 +1,7 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import * as routes from './routes';
 import dotenv from 'dotenv';
-import {updateSettings} from "./handlers/TrelloHandler";
+import {updateSettings} from "./handlers/SettingsHandler";
 
 dotenv.config();
 

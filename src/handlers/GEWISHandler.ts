@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {_settings} from './TrelloHandler';
+import {_settings} from './SettingsHandler';
 
 export async function getPhoto(posterId: number): Promise<object> {
   const config = {
