@@ -4,13 +4,14 @@ import {Poster, PosterTypes} from '../entities/Poster';
 import * as fs from "fs";
 import {Settings} from "../entities/Settings";
 
-let savedImages: string[] = [];
-
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
  * form of caching to prevent a too high load on the server
  */
 export async function updateSettings(): Promise<Settings> {
+  // Read all files that are currenly saved on disk
+  let savedImages = fs.readdirSync('./data/')
+
   let defaultTimeout = 15;
   let defaultFooter = 'full';
   const now = new Date();
