@@ -1,3 +1,5 @@
+import {PosterTypes} from './PosterTypes.js';
+
 export default class Poster {
   /** The name of the poster */
   name: string;
@@ -6,10 +8,7 @@ export default class Poster {
   label: string;
 
   /** The type of poster */
-  type: 'agenda' | 'infima' | 'image' | 'logo' | 'external' | 'photo' | 'train';
-
-  /** The date at which the poster has to be pulled from the screens */
-  due: Date | undefined;
+  type: PosterTypes;
 
   /** How long this poster should be shown on screen */
   timeout: number;
@@ -20,3 +19,5 @@ export default class Poster {
   /** If the poster is an image or video, the source of this visual */
   source: string[];
 }
+
+

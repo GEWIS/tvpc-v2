@@ -54,6 +54,24 @@ export default class InfoBar {
   }
 
   /**
+   * Change the layout to the default GEWIS red
+   */
+  private async switchToGEWISMode(): Promise<void> {
+    const bars = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('tvpc-progress-bar-inner');
+    bars[0].style.backgroundColor = '';
+    bars[1].style.backgroundColor = '';
+  }
+
+  /**
+   * Change the layout to BAC green colors with their logo
+   */
+  private async switchToBACMode(): Promise<void> {
+    const bars = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('tvpc-progress-bar-inner');
+    bars[0].style.backgroundColor = '#0f6000';
+    bars[1].style.backgroundColor = '#0f6000';
+  }
+
+  /**
    * Reset the progress bar, not depending on the current progression of the transition.
    * Not dependent on whether the bar is located on top of bottom
    * @param {string} newSize - The size of the footer with the upcoming poster

@@ -31,6 +31,12 @@ body {
     padding: 0;
 }
 
+#screen-effects {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
 #tvpc-content {
     display: block;
     position: relative;
@@ -64,6 +70,7 @@ body {
     background-color: #c40000;
     height: 100%;
     width: 100%;
+    transition: background-color 500ms;
 }
 
 #tvpc-bottom-progress-bar-top {

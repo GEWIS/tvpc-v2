@@ -5,4 +5,8 @@ export default class Settings {
   posters: Poster[];
 
   defaultTimeout: number;
+
+  defaultFooter: 'full' | 'minimal';
+
+  screenEffect: string;
 }
