@@ -9,6 +9,7 @@ import {delay} from './Helper.js';
 import PhotoPoster from './posters/PhotoPoster.js';
 import AgendaPoster from './posters/AgendaPoster.js';
 import TrainsPoster from './posters/TrainsPoster.js';
+import {PosterTypes} from './entities/PosterTypes.js';
 
 export default class Carousel {
   private currentPosterNr: number;
@@ -87,28 +88,28 @@ export default class Carousel {
     const posterToSet = sh.settings.posters[posterNr];
 
     switch (posterToSet.type) {
-      case 'logo':
+      case PosterTypes.logo:
         this.nextPoster = new LogoPoster(posterToSet.timeout);
         sh.checkForUpdate();
         break;
-      case 'agenda':
+      case PosterTypes.agenda:
         this.nextPoster = new AgendaPoster(posterToSet.timeout);
         break;
-      case 'infima':
+      case PosterTypes.infima:
         this.nextPoster = new InfimaPoster(posterToSet.timeout);
         break;
-      case 'external':
+      case PosterTypes.external:
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             posterToSet.footer, posterToSet.source[0]);
         break;
-      case 'image':
+      case PosterTypes.image:
         this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
             posterToSet.footer, posterToSet.source);
         break;
-      case 'photo':
+      case PosterTypes.photo:
         this.nextPoster = new PhotoPoster(posterToSet.timeout, this.currentPosterNr);
         break;
-      case 'train':
+      case PosterTypes.train:
         this.nextPoster = new TrainsPoster(posterToSet.timeout);
         break;
       default:

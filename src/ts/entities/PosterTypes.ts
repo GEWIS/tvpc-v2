@@ -6,4 +6,5 @@ export enum PosterTypes {
   external = 'external',
   poster = 'poster',
   photo = 'photo',
+  train = 'train',
 }

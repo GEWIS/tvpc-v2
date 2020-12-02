@@ -21,7 +21,6 @@ export class SettingsHandler {
   private static parseSettings(settingsString: string): Settings {
     const parsedSettings = JSON.parse(settingsString);
 
-    // TODO: Remove posters whose due dates have passed
     return parsedSettings as Settings;
   }
 
