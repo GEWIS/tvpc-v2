@@ -12,13 +12,8 @@ export default class PhotoPoster extends BasePoster {
     this.posterNr = posterNr;
   }
 
-  private async requestImageObj(posterNr: number): Promise<string> {
-    return await doXMLHttpRequest(`api/photo?id=${posterNr}`, true);
-  }
-
   public async preLoad(): Promise<void> {
-    const json = (await this.requestImageObj(this.posterNr));
-    const imageObj = JSON.parse(json);
+    const imageObj = await doXMLHttpRequest(`api/photo?id=${this.posterNr}`, 'json', true);
     this.label = imageObj.label;
 
     this.image = new Image();

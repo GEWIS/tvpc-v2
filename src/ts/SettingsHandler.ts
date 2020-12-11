@@ -25,8 +25,7 @@ export class SettingsHandler {
   }
 
   private static async updateSettings(): Promise<Settings> {
-    const settingsString = await doXMLHttpRequest('api/settings', true);
-    const settings = this.parseSettings(settingsString);
+    const settings = await doXMLHttpRequest('api/settings', 'json', true);
 
     if (settings.screenEffect != this.currentScreenEffect) {
       if (settings.screenEffect === 'snow') {

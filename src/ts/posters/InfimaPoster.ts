@@ -8,16 +8,11 @@ export default class InfimaPoster extends BasePoster {
     super('InfimaPoster', timeout, '', 'full');
   };
 
-  private async getInfima(): Promise<string> {
-    return await doXMLHttpRequest('./src/php/infima.php');
-  }
-
   async preLoad(): Promise<void> {
     this.parsedInfima = '';
 
     try {
-      const query = await this.getInfima();
-      const text = JSON.parse(query);
+      const text = await doXMLHttpRequest('./src/php/infima.php', 'json');
       const parts = text.split('"');
 
       if (parts.length <= 1) {

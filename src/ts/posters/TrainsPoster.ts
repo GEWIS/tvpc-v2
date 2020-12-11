@@ -8,10 +8,6 @@ export default class TrainsPoster extends BasePoster {
     super('Train Departures', timeout, 'Train departures', 'full');
   }
 
-  private async requestDepartures(): Promise<string> {
-    return await doXMLHttpRequest('api/trains', true);
-  }
-
   private parseStations(stations: string[]): string {
     // If there are no stations, return an empty string
     if (stations.length === 0) {
@@ -35,8 +31,8 @@ export default class TrainsPoster extends BasePoster {
   }
 
   async preLoad(): Promise<void> {
-    const rawDepartures = await this.requestDepartures();
-    this.departures = JSON.parse(rawDepartures) as Train[];
+    this.departures = await doXMLHttpRequest('api/trains', 'json', true);
+    // this.departures = JSON.parse(rawDepartures) as Train[];
 
     // The datetime JSON is not automatically parsed, so this has to be done manually.
     // If we do it now, it saves us time during drawing

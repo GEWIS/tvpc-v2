@@ -4,7 +4,8 @@ export function delay(ms: number) {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
 
-export async function doXMLHttpRequest(location: string, useBaseUrl: boolean = false): Promise<string> {
+export async function doXMLHttpRequest(location: string, responseType: XMLHttpRequestResponseType,
+    useBaseUrl: boolean = false): Promise<any> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -16,6 +17,7 @@ export async function doXMLHttpRequest(location: string, useBaseUrl: boolean = f
     }
 
     xhr.open('GET', url);
+    xhr.responseType = responseType;
 
     xhr.onload = function() {
       if (this.status >= 200 && this.status < 300) {

@@ -9,15 +9,9 @@ export default class AgendaPoster extends BasePoster {
     super('Agenda', timeout, 'Upcoming activities', 'full');
   }
 
-  private async requestActivities(): Promise<string> {
-    return await doXMLHttpRequest('./src/php/agenda.php');
-  }
-
   public async preLoad(): Promise<void> {
     // Get the raw activities object
-    const rawActivities = await this.requestActivities();
-    // Parse it to a list of activities
-    const activities = JSON.parse(rawActivities) as Activity[];
+    const activities = await doXMLHttpRequest('./src/php/agenda.php', 'json');
 
     // Loop over all activities
     for (let i = 0; i < activities.length; i++) {
