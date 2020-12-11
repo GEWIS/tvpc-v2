@@ -205,6 +205,12 @@ export async function updateSettings(): Promise<Settings> {
           // Set the poster type to image
           poster.type = 'image' as PosterTypes;
 
+        } else if (types === 'video') {
+          // Get the source list from saving the attachments to disk
+          poster.source = await findAndSaveAttachments(card.id);
+          // Set the poster type to video
+          poster.type = 'video' as PosterTypes;
+
         // If the poster type is an external (iframe) poster...
         } else if (types === 'extern') {
           // Set the source to be the description of the card

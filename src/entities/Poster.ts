@@ -6,6 +6,7 @@ export enum PosterTypes {
   external = 'external',
   poster = 'poster',
   photo = 'photo',
+  video = 'video',
 }
 
 export interface Poster {
