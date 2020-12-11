@@ -7,4 +7,5 @@ export enum PosterTypes {
   poster = 'poster',
   photo = 'photo',
   train = 'train',
+  video = 'video',
 }

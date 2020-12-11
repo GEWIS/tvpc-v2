@@ -28,7 +28,9 @@ export async function doXMLHttpRequest(location: string, responseType: XMLHttpRe
     };
 
     xhr.onerror = function() {
-      reject(new Error(`${this.status}: ${this.statusText}`));
+      const err = new Error(`${this.status}: ${this.statusText}`);
+      console.log(err);
+      reject(err);
     };
 
     xhr.send();

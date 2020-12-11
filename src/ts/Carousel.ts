@@ -10,6 +10,7 @@ import PhotoPoster from './posters/PhotoPoster.js';
 import AgendaPoster from './posters/AgendaPoster.js';
 import TrainsPoster from './posters/TrainsPoster.js';
 import {PosterTypes} from './entities/PosterTypes.js';
+import VideoPoster from './posters/VideoPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
@@ -111,6 +112,10 @@ export default class Carousel {
         break;
       case PosterTypes.train:
         this.nextPoster = new TrainsPoster(posterToSet.timeout);
+        break;
+      case PosterTypes.video:
+        this.nextPoster = new VideoPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
+            posterToSet.footer, posterToSet.source);
         break;
       default:
         throw new TypeError(`Poster type ${posterToSet.type} does not exist`);
