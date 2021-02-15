@@ -33,7 +33,7 @@ body {
 
 
 .agenda {
-	background: #013370;
+	background: url(../img/backgroundInfimum.svg);
 	display: block;
 	height: 100%;
 	width: 100%;
@@ -82,7 +82,7 @@ body {
 	.agenda .calendar-text{
 		text-align: center;
 		margin-top: .4em;
-		color:#013370;
+		color: #c40000;
 	}
 
 	.agenda .title {
@@ -269,7 +269,7 @@ body {
 			}
 
 .infima {
-	background: #013370;
+	background: url(../img/backgroundInfimum.svg);
 	display: block;
 	min-height: 100%;
 	width: 100%;
