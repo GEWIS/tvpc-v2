@@ -107,4 +107,7 @@ dist
 .idea
 
 # API token
-src/php/api-token.txt
+frontend/src/php/api-token.txt
+
+# Downloaded images
+backend/data
