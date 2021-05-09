@@ -1,7 +1,8 @@
-import express from 'express';
+import express, {Response} from 'express';
 import * as routes from './routes';
 import dotenv from 'dotenv';
 import {updateSettings} from "./handlers/SettingsHandler";
+import * as fs from "fs";
 
 dotenv.config();
 
@@ -10,13 +11,17 @@ const port = process.env.PORT;
 
 routes.register(app);
 
+if(!fs.existsSync('data')) {
+  fs.mkdirSync('data');
+}
+
 async function startApp() {
   console.log('Loading settings from Trello...');
   await updateSettings();
 
   app.use('/data', express.static('data', {
     setHeaders:
-      function (res, path, stat) {
+      function (res: Response, path: string, stat: any) {
         res.set("Access-Control-Allow-Origin", "*");
         res.set("Access-Control-Allow-Headers: X-Requested-With");
       }

@@ -1,4 +1,0 @@
-<Files "api-token.txt">
-	Order Allow,Deny
-	Deny from all
-</Files>

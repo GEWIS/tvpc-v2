@@ -2,17 +2,19 @@ import BasePoster from './BasePoster.js';
 import {doXMLHttpRequest} from '../Helper.js';
 
 export default class InfimaPoster extends BasePoster {
+  private readonly posterNr: number;
   private parsedInfima: string;
 
-  public constructor(timeout: number) {
+  public constructor(timeout: number, posterNr: number) {
     super('InfimaPoster', timeout, '', 'full');
+    this.posterNr = posterNr;
   };
 
   async preLoad(): Promise<void> {
     this.parsedInfima = '';
 
     try {
-      const text = await doXMLHttpRequest('./src/php/infima.php', 'json');
+      const text = await doXMLHttpRequest(`api/infima?id=${this.posterNr}`, 'json', true);
       const parts = text.split('"');
 
       if (parts.length <= 1) {

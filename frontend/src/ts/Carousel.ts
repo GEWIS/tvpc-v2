@@ -94,10 +94,10 @@ export default class Carousel {
         sh.checkForUpdate();
         break;
       case PosterTypes.agenda:
-        this.nextPoster = new AgendaPoster(posterToSet.timeout);
+        this.nextPoster = new AgendaPoster(posterToSet.timeout, this.currentPosterNr);
         break;
       case PosterTypes.infima:
-        this.nextPoster = new InfimaPoster(posterToSet.timeout);
+        this.nextPoster = new InfimaPoster(posterToSet.timeout, this.currentPosterNr);
         break;
       case PosterTypes.external:
         this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,

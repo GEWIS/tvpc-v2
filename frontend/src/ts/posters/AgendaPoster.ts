@@ -3,15 +3,17 @@ import {doXMLHttpRequest} from '../Helper.js';
 import Activity from '../entities/Activity.js';
 
 export default class AgendaPoster extends BasePoster {
+  private readonly posterNr: number;
   private activities: Activity[] = [];
   private monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public constructor(timeout: number) {
+  public constructor(timeout: number, posterNr: number) {
     super('Agenda', timeout, 'Upcoming activities', 'full');
+    this.posterNr = posterNr;
   }
 
   public async preLoad(): Promise<void> {
     // Get the raw activities object
-    const activities = await doXMLHttpRequest('./src/php/agenda.php', 'json');
+    const activities = await doXMLHttpRequest(`api/activities?id=${this.posterNr}`, 'json', true);
 
     // Loop over all activities
     for (let i = 0; i < activities.length; i++) {
