@@ -2,7 +2,7 @@ import {parseTimeToString} from './Helper.js';
 
 export default class Clock {
   private clock: HTMLElement;
-  private loop: number;
+  private loop: any;
 
   /**
    * Create a Clock object

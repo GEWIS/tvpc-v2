@@ -7,7 +7,7 @@ export class SettingsHandler {
   private static initialized = false;
   private static layoutHandler: LayoutHandler;
 
-  private static currentScreenEffect: string = '';
+  private static currentScreenEffect = '';
 
   static get settings(): Settings {
     return this._settings;

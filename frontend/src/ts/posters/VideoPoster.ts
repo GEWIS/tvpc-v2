@@ -4,10 +4,10 @@ import BasePoster from './BasePoster.js';
 export default class VideoPoster extends BasePoster {
   private readonly sourceUrls: string[];
   private videoBlob: Blob;
-  private shouldUseBaseUrl: boolean = false;
+  private shouldUseBaseUrl = false;
 
   public constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
-      sourceUrls: string[], baseUrl: boolean = true) {
+      sourceUrls: string[], baseUrl = true) {
     super(name, timeout, label, footer);
     this.sourceUrls = sourceUrls;
     this.shouldUseBaseUrl = baseUrl;

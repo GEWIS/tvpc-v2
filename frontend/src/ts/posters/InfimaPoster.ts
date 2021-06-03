@@ -8,7 +8,7 @@ export default class InfimaPoster extends BasePoster {
   public constructor(timeout: number, posterNr: number) {
     super('InfimaPoster', timeout, '', 'full');
     this.posterNr = posterNr;
-  };
+  }
 
   async preLoad(): Promise<void> {
     this.parsedInfima = '';

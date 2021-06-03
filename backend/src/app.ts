@@ -29,7 +29,7 @@ async function startApp() {
   ));
   app.listen(port, () => {
     console.log(`TVPC backend listening at http://localhost:${port}`);
-  })
+  });
 
   setInterval(function() {
     updateSettings();
