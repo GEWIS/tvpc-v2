@@ -1,20 +1,20 @@
-import BasePoster from './posters/BasePoster.js';
-import InfimaPoster from './posters/InfimaPoster.js';
-import ExternalPoster from './posters/ExternalPoster.js';
-import ImagePoster from './posters/ImagePoster.js';
-import {SettingsHandler as sh} from './SettingsHandler.js';
-import LogoPoster from './posters/LogoPoster.js';
-import InfoBar from './InfoBar.js';
-import {delay} from './Helper.js';
-import PhotoPoster from './posters/PhotoPoster.js';
-import AgendaPoster from './posters/AgendaPoster.js';
-import TrainsPoster from './posters/TrainsPoster.js';
-import {PosterTypes} from './entities/PosterTypes.js';
-import VideoPoster from './posters/VideoPoster.js';
+import BasePoster from './posters/BasePoster';
+import InfimaPoster from './posters/InfimaPoster';
+import ExternalPoster from './posters/ExternalPoster';
+import ImagePoster from './posters/ImagePoster';
+import {SettingsHandler as sh} from './SettingsHandler';
+import LogoPoster from './posters/LogoPoster';
+import InfoBar from './InfoBar';
+import {delay} from './Helper';
+import PhotoPoster from './posters/PhotoPoster';
+import AgendaPoster from './posters/AgendaPoster';
+import TrainsPoster from './posters/TrainsPoster';
+import {PosterTypes} from './entities/PosterTypes';
+import VideoPoster from './posters/VideoPoster';
 
 export default class Carousel {
   private currentPosterNr: number;
-  private loop: any;
+  private loop: NodeJS.Timeout;
 
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
@@ -30,16 +30,16 @@ export default class Carousel {
     this.contentBox = contentBox;
 
     this.stukPoster = new ImagePoster('It\'s broken!', sh.settings.defaultTimeout,
-        '', 'full', ['src/img/AViCo het is stuk.png'], false);
+        '', 'full', ['./resources/img/AViCo het is stuk.png'], false);
     this.stukPoster.preLoad();
     this.nextPoster = new ImagePoster('AViCo TVPC V2', sh.settings.defaultTimeout,
-        'AViCo TVPC V2', 'full', ['src/img/startPoster.png'], false);
+        'AViCo TVPC V2', 'full', ['./resources/img/startPoster.png'], false);
     this.nextPoster.preLoad();
 
     this.currentPosterNr = Math.floor(Math.random() * sh.settings.posters.length);
   }
 
-  public static getInstance(infoBar: InfoBar, contentBox: HTMLElement) {
+  public static getInstance(infoBar: InfoBar, contentBox: HTMLElement): Carousel {
     if (Carousel.instance === undefined) {
       Carousel.instance = new Carousel(infoBar, contentBox);
     }
@@ -49,7 +49,7 @@ export default class Carousel {
   /**
    * Forcefully go to the next poster
    */
-  public async forceNextPoster() {
+  public async forceNextPoster(): Promise<void> {
     clearTimeout(this.loop);
     await this.drawPoster();
   }
@@ -57,7 +57,7 @@ export default class Carousel {
   /**
    * Forcefully pause the loop. Can only be restarted by forcing the next poster
    */
-  public stopLoop() {
+  public stopLoop(): void{
     clearTimeout(this.loop);
     this.infoBar.resetProgressBar(this.currentPoster.footer);
   }
@@ -133,7 +133,7 @@ export default class Carousel {
   /**
    * Draw the next poster and load pre-load the next next poster
    */
-  public async drawPoster() {
+  public async drawPoster(): Promise<void> {
     try {
       // Let's try to draw the next poster, and if it doesn't work, we show something else on the screen
       await this.infoBar.resetProgressBar(this.nextPoster.footer);

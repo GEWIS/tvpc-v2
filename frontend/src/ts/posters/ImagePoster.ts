@@ -1,10 +1,9 @@
-import BasePoster from './BasePoster.js';
-import {baseUrl} from '../Helper.js';
+import BasePoster from './BasePoster';
+import {baseUrl} from '../Helper';
 
 export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
-  // @ts-ignore
-  private image: Image;
+  private image: HTMLImageElement;
   private shouldUseBaseUrl = false
 
   constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',

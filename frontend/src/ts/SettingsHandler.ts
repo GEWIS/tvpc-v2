@@ -1,6 +1,6 @@
-import Settings from './entities/Settings.js';
-import {doXMLHttpRequest} from './Helper.js';
-import LayoutHandler from './LayoutHandler.js';
+import Settings from './entities/Settings';
+import {doXMLHttpRequest} from './Helper';
+import LayoutHandler from './LayoutHandler';
 
 export class SettingsHandler {
   private static _settings: Settings;
@@ -25,7 +25,7 @@ export class SettingsHandler {
   }
 
   private static async updateSettings(): Promise<Settings> {
-    const settings = await doXMLHttpRequest('api/settings', 'json', true);
+    const settings = await doXMLHttpRequest('api/settings', 'json', true) as Settings;
 
     if (settings.screenEffect != this.currentScreenEffect) {
       if (settings.screenEffect === 'snow') {

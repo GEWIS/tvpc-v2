@@ -1,16 +1,18 @@
-import BasePoster from './BasePoster.js';
+import BasePoster from './BasePoster';
 
 export default class LogoPoster extends BasePoster {
   public constructor(timeout: number) {
     super('LogoPoster', timeout, '', 'full');
   }
 
-  preLoad(): void {}
+  preLoad(): void {
+    // do nothing.
+  }
 
   draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
     <article>
-        <img class="logo center" src="./src/img/Full_Logo_Colour.png">
+        <img class="logo center" src="./resources/img/Full_Logo_Colour.png">
     </article>
     `;
   }

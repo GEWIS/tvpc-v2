@@ -1,6 +1,6 @@
-import BasePoster from './BasePoster.js';
-import {doXMLHttpRequest} from '../Helper.js';
-import Activity from '../entities/Activity.js';
+import BasePoster from './BasePoster';
+import {doXMLHttpRequest} from '../Helper';
+import Activity from '../entities/Activity';
 
 export default class AgendaPoster extends BasePoster {
   private readonly posterNr: number;
@@ -13,7 +13,7 @@ export default class AgendaPoster extends BasePoster {
 
   public async preLoad(): Promise<void> {
     // Get the raw activities object
-    const activities = await doXMLHttpRequest(`api/activities?id=${this.posterNr}`, 'json', true);
+    const activities = await doXMLHttpRequest(`api/activities?id=${this.posterNr}`, 'json', true) as Activity[];
 
     // Loop over all activities
     for (let i = 0; i < activities.length; i++) {

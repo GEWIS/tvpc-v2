@@ -1,4 +1,4 @@
-import Poster from './Poster.js';
+import Poster from './Poster';
 
 export default class Settings {
   /** List of posters that need to be shown */

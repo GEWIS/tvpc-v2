@@ -1,4 +1,4 @@
-import {delay} from './Helper.js';
+import {delay} from './Helper';
 
 export default class InfoBar {
   private static instance: InfoBar;
@@ -13,7 +13,7 @@ export default class InfoBar {
     this.progressBar = document.getElementById('tvpc-progress-bar-top-inner');
   }
 
-  public static getInstance() {
+  public static getInstance(): InfoBar {
     if (!InfoBar.instance) {
       InfoBar.instance = new InfoBar();
     }
@@ -103,7 +103,7 @@ export default class InfoBar {
   /**
    * Make the label invisible
    */
-  public hideLabel() {
+  public hideLabel(): void {
     const label = document.getElementById('tvpc-label');
     label.style.opacity = '0';
   }
@@ -112,7 +112,7 @@ export default class InfoBar {
    * Make the label visible again
    * @param {string} text - The text of the label
    */
-  public showLabel(text: string) {
+  public showLabel(text: string): void {
     const label = document.getElementById('tvpc-label');
     label.innerHTML = text;
     label.style.opacity = '1';

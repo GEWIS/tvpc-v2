@@ -1,11 +1,11 @@
 export const baseUrl = 'https://cbc-tvpc-test.gewis.nl/';
 
-export function delay(ms: number) {
+export function delay(ms: number): Promise<NodeJS.Timeout> {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
 
 export async function doXMLHttpRequest(location: string, responseType: XMLHttpRequestResponseType,
-    useBaseUrl = false): Promise<any> {
+    useBaseUrl = false): Promise<unknown> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -38,7 +38,7 @@ export async function doXMLHttpRequest(location: string, responseType: XMLHttpRe
 }
 
 
-export function parseTimeToString(time: Date) {
+export function parseTimeToString(time: Date): string {
   let hours: string;
   let minutes: string;
   if (time.getHours() < 10) {

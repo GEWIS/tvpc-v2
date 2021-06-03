@@ -1,8 +1,8 @@
-import SettingsHandler from './ts/SettingsHandler.js';
-import Carousel from './ts/Carousel.js';
-import InfoBar from './ts/InfoBar.js';
-import Clock from './ts/Clock.js';
-import LayoutHandler from './ts/LayoutHandler.js';
+import SettingsHandler from './ts/SettingsHandler';
+import Carousel from './ts/Carousel';
+import InfoBar from './ts/InfoBar';
+import Clock from './ts/Clock';
+import LayoutHandler from './ts/LayoutHandler';
 
 let carousel: Carousel;
 

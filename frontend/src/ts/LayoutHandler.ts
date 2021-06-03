@@ -1,21 +1,18 @@
-import InfoBar from './InfoBar.js';
+import InfoBar from './InfoBar';
 
 export default class LayoutHandler {
   private static instance: LayoutHandler;
 
   private infoBar: InfoBar;
 
-  private constructor() {
-  }
-
-  public static getInstance() {
+  public static getInstance(): LayoutHandler {
     if (!LayoutHandler.instance) {
       LayoutHandler.instance = new LayoutHandler();
     }
     return LayoutHandler.instance;
   }
 
-  public init(infoBar: InfoBar) {
+  public init(infoBar: InfoBar): void {
     this.infoBar = infoBar;
   }
 

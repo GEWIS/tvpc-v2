@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:fix": "eslint --fix src --ext .ts",
+    "wp": "webpack",
     "compile": "tsc"
   },
   "repository": {
@@ -21,8 +22,12 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "copy-webpack-plugin": "^9.0.0",
     "eslint": "^7.26.0",
     "eslint-config-google": "^0.14.0",
-    "typescript": "^4.2.4"
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   }
 }

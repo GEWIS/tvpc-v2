@@ -1,5 +1,5 @@
-import BasePoster from './BasePoster.js';
-import {doXMLHttpRequest} from '../Helper.js';
+import BasePoster from './BasePoster';
+import {doXMLHttpRequest} from '../Helper';
 
 export default class InfimaPoster extends BasePoster {
   private readonly posterNr: number;
@@ -14,7 +14,7 @@ export default class InfimaPoster extends BasePoster {
     this.parsedInfima = '';
 
     try {
-      const text = await doXMLHttpRequest(`api/infima?id=${this.posterNr}`, 'json', true);
+      const text = await doXMLHttpRequest(`api/infima?id=${this.posterNr}`, 'json', true) as string;
       const parts = text.split('"');
 
       if (parts.length <= 1) {

@@ -1,4 +1,4 @@
-import {PosterTypes} from './PosterTypes.js';
+import {PosterTypes} from './PosterTypes';
 
 export default class Poster {
   /** The name of the poster */

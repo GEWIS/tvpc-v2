@@ -55,7 +55,7 @@ export async function getPhoto(posterId: number): Promise<object> {
     result.label = returnObj.album.name;
     const nrOfPhotos = returnObj.photos.length;
     const photo = returnObj.photos[Math.floor(Math.random() * nrOfPhotos)];
-    result.sourceUrl = '/data/' + photo.path;
+    result.sourceUrl = 'https://gewis.nl/data/' + photo.path;
 
     resolve(result);
   });

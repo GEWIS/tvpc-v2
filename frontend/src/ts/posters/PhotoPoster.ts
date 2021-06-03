@@ -1,11 +1,11 @@
-import {doXMLHttpRequest} from '../Helper.js';
-import BasePoster from './BasePoster.js';
+import {doXMLHttpRequest} from '../Helper';
+import BasePoster from './BasePoster';
+import {Photo} from "../entities/Backend";
 
 export default class PhotoPoster extends BasePoster {
   private readonly posterNr: number;
   private sourceUrl: string;
-  // @ts-ignore
-  private image: Image;
+  private image: HTMLImageElement;
 
   public constructor(timeout: number, posterNr: number) {
     super('Photo', timeout, undefined, 'full');
@@ -13,7 +13,7 @@ export default class PhotoPoster extends BasePoster {
   }
 
   public async preLoad(): Promise<void> {
-    const imageObj = await doXMLHttpRequest(`api/photo?id=${this.posterNr}`, 'json', true);
+    const imageObj = await doXMLHttpRequest(`api/photo?id=${this.posterNr}`, 'json', true) as Photo;
     this.label = imageObj.label;
 
     this.image = new Image();
@@ -23,7 +23,7 @@ export default class PhotoPoster extends BasePoster {
   public draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
       <article class="tvpc-photo">
-        <div class="tvpc-photo-background-image" style="background-image: url('${this.image.src}')"></div>
+        <div class="tvpc-photo-background-image" style="background-image: url('uhm${this.image.src}')"></div>
         <div class="tvpc-photo-content" style="background-image: url('${this.image.src}')"></div>
       </article>
     `;

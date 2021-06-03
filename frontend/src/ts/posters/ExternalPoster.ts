@@ -1,4 +1,4 @@
-import BasePoster from './BasePoster.js';
+import BasePoster from './BasePoster';
 
 export default class ExternalPoster extends BasePoster {
   private readonly sourceUrl: string;

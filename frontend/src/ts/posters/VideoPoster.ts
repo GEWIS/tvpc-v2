@@ -1,5 +1,5 @@
-import {doXMLHttpRequest} from '../Helper.js';
-import BasePoster from './BasePoster.js';
+import {doXMLHttpRequest} from '../Helper';
+import BasePoster from './BasePoster';
 
 export default class VideoPoster extends BasePoster {
   private readonly sourceUrls: string[];
@@ -19,7 +19,7 @@ export default class VideoPoster extends BasePoster {
     const chosenPoster = this.sourceUrls[Math.floor(Math.random() * this.sourceUrls.length)];
 
     console.log('send GET request for video blob');
-    this.videoBlob = await doXMLHttpRequest(chosenPoster, 'blob', true);
+    this.videoBlob = await doXMLHttpRequest(chosenPoster, 'blob', true) as Blob;
     console.log(this.videoBlob);
   }
 

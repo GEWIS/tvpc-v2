@@ -1,6 +1,6 @@
-import BasePoster from './BasePoster.js';
-import {doXMLHttpRequest, parseTimeToString} from '../Helper.js';
-import {DepartureMessage, Train} from '../entities/Train.js';
+import BasePoster from './BasePoster';
+import {doXMLHttpRequest, parseTimeToString} from '../Helper';
+import {DepartureMessage, Train} from '../entities/Train';
 
 export default class TrainsPoster extends BasePoster {
   private departures: Train[] = [];
@@ -31,7 +31,7 @@ export default class TrainsPoster extends BasePoster {
   }
 
   async preLoad(): Promise<void> {
-    this.departures = await doXMLHttpRequest('api/trains', 'json', true);
+    this.departures = await doXMLHttpRequest('api/trains', 'json', true) as Train[];
     // this.departures = JSON.parse(rawDepartures) as Train[];
 
     // The datetime JSON is not automatically parsed, so this has to be done manually.

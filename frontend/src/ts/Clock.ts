@@ -1,8 +1,8 @@
-import {parseTimeToString} from './Helper.js';
+import {parseTimeToString} from './Helper';
 
 export default class Clock {
   private clock: HTMLElement;
-  private loop: any;
+  private loop: NodeJS.Timeout;
 
   /**
    * Create a Clock object
@@ -15,14 +15,14 @@ export default class Clock {
   /**
    * Start the clock in the clock object
    */
-  public startClock() {
+  public startClock(): void {
     this.updateClock();
   }
 
   /**
    * Stop the clock in the clock object
    */
-  public stopClock() {
+  public stopClock(): void {
     clearTimeout(this.loop);
   }
 
