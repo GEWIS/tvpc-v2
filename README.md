@@ -8,8 +8,10 @@ This new version is written in Typescript.
 
 ## How to run
 1. Clone this repository.
-2. Install all packages (Typescript and ESLint) with `npm install`.
-3. While in the root directory of the repo, 
+2. Install all packages in both the frontend as well as the backend folder with `npm install`
+3. Set the environment variables in `backend/.env`.
+4. Run `npm run watch` in a terminal in the backend folder.
+5. While in the frontend folder, 
 compile the Typescript files with `tsc`. 
 When you want to debug the code in your browser, run `tsc --sourceMap`.
 4. Open index.html.
