@@ -14,7 +14,7 @@ import VideoPoster from './posters/VideoPoster.js';
 
 export default class Carousel {
   private currentPosterNr: number;
-  private loop: number;
+  private loop: any;
 
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
@@ -37,7 +37,7 @@ export default class Carousel {
     this.nextPoster.preLoad();
 
     this.currentPosterNr = Math.floor(Math.random() * sh.settings.posters.length);
-  };
+  }
 
   public static getInstance(infoBar: InfoBar, contentBox: HTMLElement) {
     if (Carousel.instance === undefined) {

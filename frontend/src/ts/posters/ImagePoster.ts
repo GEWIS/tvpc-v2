@@ -5,10 +5,10 @@ export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
   // @ts-ignore
   private image: Image;
-  private shouldUseBaseUrl: boolean = false
+  private shouldUseBaseUrl = false
 
   constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
-      sourceUrls: string[], baseUrl: boolean = true) {
+      sourceUrls: string[], baseUrl = true) {
     super(name, timeout, label, footer);
     this.sourceUrls = sourceUrls;
     this.shouldUseBaseUrl = baseUrl;

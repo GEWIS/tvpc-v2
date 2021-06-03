@@ -42,7 +42,7 @@ export async function getPhoto(posterId: number): Promise<object> {
   }
 
   return new Promise(async (resolve, reject) => {
-    let result = {label: '', sourceUrl: ''};
+    const result = {label: '', sourceUrl: ''};
 
     const poster = _settings.posters[posterId];
     if (poster.type !== 'photo') {

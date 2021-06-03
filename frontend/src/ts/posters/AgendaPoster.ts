@@ -41,7 +41,7 @@ export default class AgendaPoster extends BasePoster {
         <ul>`;
 
     let inner = '';
-    let cancelled: boolean = false;
+    let cancelled = false;
     for (let i = 0; i < this.activities.length; i++) {
       if (this.activities[i].nameEn.includes('[CANCELLED]') || this.activities[i].nameEn.includes('- CANCELLED')) {
         cancelled = true;

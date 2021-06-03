@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <base href=".">
-    <link rel="stylesheet" href="src/css/style.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="src/css/posters.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="src/css/fontAwesome.css" type="text/css" />
+    <link rel="stylesheet" href="./src/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="./src/css/posters.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="./src/css/fontAwesome.css" type="text/css" />
     <link rel="stylesheet" type="text/css" id="screen-effects-css"/>
     <title>AViCo TVPC-v2 script</title>
 </head>
@@ -14,14 +14,14 @@
     <div id="tvpc-content">
         <!-- This is the starting poster, which will also be drawn by Carousel.ts -->
         <!-- It is only here to make the startup process look much smoother -->
-        <article class="tvpc-photo" style="background-image: url('src/img/startPoster.png'); background-size: cover;"></article>
+        <article class="tvpc-photo" style="background-image: url('./src/img/startPoster.png'); background-size: cover;"></article>
     </div>
     <div id="tvpc-bottom-bar" style="background-color: rgba(0, 0, 0, 0.5);">
         <div class="tvpc-bottom-progress-bar" id="tvpc-bottom-progress-bar-top">
             <div class="tvpc-progress-bar-inner" id="tvpc-progress-bar-top-inner"></div>
         </div>
         <div id="tvpc-gewis-logo">
-            <img class="tvpc-logo" src="src/img/Full_Logo_White.png">
+            <img class="tvpc-logo" src="./src/img/Full_Logo_White.png">
         </div>
         <div id="tvpc-explanation"><span id="tvpc-label"></span></div>
         <div id="tvpc-time">--:--</div>
@@ -29,6 +29,6 @@
             <div class="tvpc-progress-bar-inner" id="tvpc-progress-bar-bottom-inner" style="transform: translateX(-100%);"></div>
         </div>
     </div>
-    <script type="module" src="dist/index.js"></script>
+    <script type="module" src="./dist/index.js"></script>
 </body>
 </html>

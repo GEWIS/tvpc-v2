@@ -1,11 +1,11 @@
-export const baseUrl = 'https://tvpc.gewis.nl/';
+export const baseUrl = 'https://cbc-tvpc-test.gewis.nl/';
 
 export function delay(ms: number) {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
 }
 
 export async function doXMLHttpRequest(location: string, responseType: XMLHttpRequestResponseType,
-    useBaseUrl: boolean = false): Promise<any> {
+    useBaseUrl = false): Promise<any> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 

@@ -117,7 +117,7 @@ export async function updateSettings(): Promise<Settings> {
     })).data as IAttachment[];
 
     // Create an empty array to store all saved image location URLs
-    let result: string[] = [];
+    const result: string[] = [];
     // For each attachment in the list of attachments...
     for (const attachment of attachments) {
       // Create the filename with the correct extension
