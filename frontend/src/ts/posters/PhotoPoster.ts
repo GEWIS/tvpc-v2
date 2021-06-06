@@ -1,6 +1,6 @@
-import {doXMLHttpRequest} from '../Helper';
+import { doXMLHttpRequest } from '../Helper';
 import BasePoster from './BasePoster';
-import {Photo} from "../entities/Backend";
+import { Photo } from "../entities/Backend";
 
 export default class PhotoPoster extends BasePoster {
   private readonly posterNr: number;
@@ -17,13 +17,14 @@ export default class PhotoPoster extends BasePoster {
     this.label = imageObj.label;
 
     this.image = new Image();
-    this.image.src = imageObj.sourceUrl;
+    this.image.src = 'https://gewis.nl' + imageObj.sourceUrl;
+    console.log(imageObj);
   }
 
   public draw(contentBox: HTMLElement): void {
     contentBox.innerHTML = `
       <article class="tvpc-photo">
-        <div class="tvpc-photo-background-image" style="background-image: url('uhm${this.image.src}')"></div>
+        <div class="tvpc-photo-background-image" style="background-image: url('${this.image.src}')"></div>
         <div class="tvpc-photo-content" style="background-image: url('${this.image.src}')"></div>
       </article>
     `;

@@ -1,6 +1,6 @@
 import BasePoster from './BasePoster';
-import {doXMLHttpRequest, parseTimeToString} from '../Helper';
-import {DepartureMessage, Train} from '../entities/Train';
+import { doXMLHttpRequest, parseTimeToString } from '../Helper';
+import { DepartureMessage, Train } from '../entities/Train';
 
 export default class TrainsPoster extends BasePoster {
   private departures: Train[] = [];
@@ -52,9 +52,9 @@ export default class TrainsPoster extends BasePoster {
           <tbody>
             <tr>
               <td colspan="4" class="tvpc-ns-header">
-                <img src="./src/img/train.svg">
+                <img src="./resources/img/train.svg">
                 Departures from Eindhoven Centraal
-                <img src="./src/img/train.svg" style="transform: scaleX(-1);"> 
+                <img src="./resources/img/train.svg" style="transform: scaleX(-1);"> 
               </td>
             </tr>`;
 
@@ -78,7 +78,7 @@ export default class TrainsPoster extends BasePoster {
         <td class="tvpc-ns-relative-time"><div>(in ${relativeDepartTime}m)</div></td>
         <td class="tvpc-ns-destination"><div>
           <div class="tvpc-ns-direction">${dep.direction}</div>
-          <div class="tvpc-ns-info"><img src="./src/img/${dep.operator}.svg" alt="${dep.operator}"
+          <div class="tvpc-ns-info"><img src="./resources/img/${dep.operator}.svg" alt="${dep.operator}"
           > <i>${dep.trainType}</i> ${this.parseStations(dep.routeStations)}`;
         // Here is a very nice intermezzo for the messages that are provided by the NS
         dep.messages.forEach((messageObj: DepartureMessage) => {

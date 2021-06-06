@@ -2,38 +2,35 @@ import BasePoster from './posters/BasePoster';
 import InfimaPoster from './posters/InfimaPoster';
 import ExternalPoster from './posters/ExternalPoster';
 import ImagePoster from './posters/ImagePoster';
-import {SettingsHandler as sh} from './SettingsHandler';
+import { SettingsHandler as sh } from './SettingsHandler';
 import LogoPoster from './posters/LogoPoster';
 import InfoBar from './InfoBar';
-import {delay} from './Helper';
+import { delay } from './Helper';
 import PhotoPoster from './posters/PhotoPoster';
 import AgendaPoster from './posters/AgendaPoster';
 import TrainsPoster from './posters/TrainsPoster';
-import {PosterTypes} from './entities/PosterTypes';
+import { PosterTypes } from './entities/PosterTypes';
 import VideoPoster from './posters/VideoPoster';
 
 export default class Carousel {
+  private static instance: Carousel;
   private currentPosterNr: number;
   private loop: NodeJS.Timeout;
-
   private currentPoster: BasePoster;
   private nextPoster: BasePoster;
   private readonly stukPoster: ImagePoster;
-
   private readonly infoBar: InfoBar;
   private readonly contentBox: HTMLElement;
-
-  private static instance: Carousel;
 
   private constructor(infoBar: InfoBar, contentBox: HTMLElement) {
     this.infoBar = infoBar;
     this.contentBox = contentBox;
 
     this.stukPoster = new ImagePoster('It\'s broken!', sh.settings.defaultTimeout,
-        '', 'full', ['./resources/img/AViCo het is stuk.png'], false);
+      '', 'full', ['./resources/img/AViCo het is stuk.png'], false);
     this.stukPoster.preLoad();
     this.nextPoster = new ImagePoster('AViCo TVPC V2', sh.settings.defaultTimeout,
-        'AViCo TVPC V2', 'full', ['./resources/img/startPoster.png'], false);
+      'AViCo TVPC V2', 'full', ['./resources/img/startPoster.png'], false);
     this.nextPoster.preLoad();
 
     this.currentPosterNr = Math.floor(Math.random() * sh.settings.posters.length);
@@ -57,9 +54,39 @@ export default class Carousel {
   /**
    * Forcefully pause the loop. Can only be restarted by forcing the next poster
    */
-  public stopLoop(): void{
+  public stopLoop(): void {
     clearTimeout(this.loop);
     this.infoBar.resetProgressBar(this.currentPoster.footer);
+  }
+
+  /**
+   * Draw the next poster and load pre-load the next next poster
+   */
+  public async drawPoster(): Promise<void> {
+    try {
+    // Let's try to draw the next poster, and if it doesn't work, we show something else on the screen
+      await this.infoBar.resetProgressBar(this.nextPoster.footer);
+      await this.hidePoster();
+      this.nextPoster.draw(this.contentBox);
+      this.currentPoster = this.nextPoster;
+
+      this.showPoster(this.currentPoster.label);
+      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
+    } catch (error) {
+      console.log(error);
+      // If something goes wrong drawing the current poster, we draw the "AVICO HET IS STUK" poster
+      this.stukPoster.draw(this.contentBox);
+      this.currentPoster = this.stukPoster;
+      this.showPoster(this.currentPoster.label);
+      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
+    }
+
+    // This "should" always work, and if it doesn't, we are much, much more screwed.
+    // Therefore, this piece runs outside the try-catch box
+    // If preloading the poster for example fails, we need to show the stukPoster anyway, so save the problem for later
+    this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
+    await this.loadNextPoster();
+    await this.nextPoster.preLoad();
   }
 
   /**
@@ -89,36 +116,36 @@ export default class Carousel {
     const posterToSet = sh.settings.posters[posterNr];
 
     switch (posterToSet.type) {
-      case PosterTypes.logo:
-        this.nextPoster = new LogoPoster(posterToSet.timeout);
-        sh.checkForUpdate();
-        break;
-      case PosterTypes.agenda:
-        this.nextPoster = new AgendaPoster(posterToSet.timeout, this.currentPosterNr);
-        break;
-      case PosterTypes.infima:
-        this.nextPoster = new InfimaPoster(posterToSet.timeout, this.currentPosterNr);
-        break;
-      case PosterTypes.external:
-        this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer, posterToSet.source[0]);
-        break;
-      case PosterTypes.image:
-        this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer, posterToSet.source);
-        break;
-      case PosterTypes.photo:
-        this.nextPoster = new PhotoPoster(posterToSet.timeout, this.currentPosterNr);
-        break;
-      case PosterTypes.train:
-        this.nextPoster = new TrainsPoster(posterToSet.timeout);
-        break;
-      case PosterTypes.video:
-        this.nextPoster = new VideoPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
-            posterToSet.footer, posterToSet.source);
-        break;
-      default:
-        throw new TypeError(`Poster type ${posterToSet.type} does not exist`);
+    case PosterTypes.logo:
+      this.nextPoster = new LogoPoster(posterToSet.timeout);
+      sh.checkForUpdate();
+      break;
+    case PosterTypes.agenda:
+      this.nextPoster = new AgendaPoster(posterToSet.timeout, this.currentPosterNr);
+      break;
+    case PosterTypes.infima:
+      this.nextPoster = new InfimaPoster(posterToSet.timeout, this.currentPosterNr);
+      break;
+    case PosterTypes.external:
+      this.nextPoster = new ExternalPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        posterToSet.footer, posterToSet.source[0]);
+      break;
+    case PosterTypes.image:
+      this.nextPoster = new ImagePoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        posterToSet.footer, posterToSet.source);
+      break;
+    case PosterTypes.photo:
+      this.nextPoster = new PhotoPoster(posterToSet.timeout, this.currentPosterNr);
+      break;
+    case PosterTypes.train:
+      this.nextPoster = new TrainsPoster(posterToSet.timeout);
+      break;
+    case PosterTypes.video:
+      this.nextPoster = new VideoPoster(posterToSet.name, posterToSet.timeout, posterToSet.label,
+        posterToSet.footer, posterToSet.source);
+      break;
+    default:
+      throw new TypeError(`Poster type ${posterToSet.type} does not exist`);
     }
   }
 
@@ -128,35 +155,5 @@ export default class Carousel {
   private loadNextPoster() {
     this.currentPosterNr = (this.currentPosterNr + 1) % sh.settings.posters.length;
     this.createNextPoster(this.currentPosterNr);
-  }
-
-  /**
-   * Draw the next poster and load pre-load the next next poster
-   */
-  public async drawPoster(): Promise<void> {
-    try {
-      // Let's try to draw the next poster, and if it doesn't work, we show something else on the screen
-      await this.infoBar.resetProgressBar(this.nextPoster.footer);
-      await this.hidePoster();
-      this.nextPoster.draw(this.contentBox);
-      this.currentPoster = this.nextPoster;
-
-      this.showPoster(this.currentPoster.label);
-      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
-    } catch (error) {
-      console.log(error);
-      // If something goes wrong drawing the current poster, we draw the "AVICO HET IS STUK" poster
-      this.stukPoster.draw(this.contentBox);
-      this.currentPoster = this.stukPoster;
-      this.showPoster(this.currentPoster.label);
-      await this.infoBar.startProgressBar(this.currentPoster.timeout, this.currentPoster.footer);
-    }
-
-    // This "should" always work, and if it doesn't, we are much, much more screwed.
-    // Therefore, this piece runs outside the try-catch box
-    // If preloading the poster for example fails, we need to show the stukPoster anyway, so save the problem for later
-    this.loop = setTimeout(this.drawPoster.bind(this), this.currentPoster.timeout * 1000);
-    await this.loadNextPoster();
-    await this.nextPoster.preLoad();
   }
 }

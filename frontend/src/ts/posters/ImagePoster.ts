@@ -1,5 +1,5 @@
 import BasePoster from './BasePoster';
-import {baseUrl} from '../Helper';
+import { baseUrl } from '../Helper';
 
 export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
@@ -7,7 +7,7 @@ export default class ImagePoster extends BasePoster {
   private shouldUseBaseUrl = false
 
   constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
-      sourceUrls: string[], baseUrl = true) {
+    sourceUrls: string[], baseUrl = true) {
     super(name, timeout, label, footer);
     this.sourceUrls = sourceUrls;
     this.shouldUseBaseUrl = baseUrl;

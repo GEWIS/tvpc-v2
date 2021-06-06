@@ -1,4 +1,4 @@
-import {doXMLHttpRequest} from '../Helper';
+import { doXMLHttpRequest } from '../Helper';
 import BasePoster from './BasePoster';
 
 export default class VideoPoster extends BasePoster {
@@ -7,7 +7,7 @@ export default class VideoPoster extends BasePoster {
   private shouldUseBaseUrl = false;
 
   public constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
-      sourceUrls: string[], baseUrl = true) {
+    sourceUrls: string[], baseUrl = true) {
     super(name, timeout, label, footer);
     this.sourceUrls = sourceUrls;
     this.shouldUseBaseUrl = baseUrl;

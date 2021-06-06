@@ -1,5 +1,5 @@
 import BasePoster from './BasePoster';
-import {doXMLHttpRequest} from '../Helper';
+import { doXMLHttpRequest } from '../Helper';
 
 export default class InfimaPoster extends BasePoster {
   private readonly posterNr: number;

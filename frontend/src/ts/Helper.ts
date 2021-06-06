@@ -5,7 +5,7 @@ export function delay(ms: number): Promise<NodeJS.Timeout> {
 }
 
 export async function doXMLHttpRequest(location: string, responseType: XMLHttpRequestResponseType,
-    useBaseUrl = false): Promise<unknown> {
+  useBaseUrl = false): Promise<unknown> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 

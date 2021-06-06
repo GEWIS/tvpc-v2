@@ -1,4 +1,4 @@
-import {delay} from './Helper';
+import { delay } from './Helper';
 
 export default class InfoBar {
   private static instance: InfoBar;
@@ -28,27 +28,27 @@ export default class InfoBar {
   private async switchProgressBar(action: 'start' | 'stop', newSize: 'full' | 'minimal'): Promise<void> {
     if (this.currentSize != newSize) {
       switch (newSize) {
-        case 'full':
-          if (action === 'start') {
-            document.getElementById('tvpc-bottom-bar').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            document.getElementById('tvpc-gewis-logo').style.visibility = '';
-            document.getElementById('tvpc-explanation').style.visibility = '';
-            this.progressBar = document.getElementById('tvpc-progress-bar-top-inner');
-            this.currentSize = 'full';
-            await delay(20);
-          }
-          break;
+      case 'full':
+        if (action === 'start') {
+          document.getElementById('tvpc-bottom-bar').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+          document.getElementById('tvpc-gewis-logo').style.visibility = '';
+          document.getElementById('tvpc-explanation').style.visibility = '';
+          this.progressBar = document.getElementById('tvpc-progress-bar-top-inner');
+          this.currentSize = 'full';
+          await delay(20);
+        }
+        break;
 
-        case 'minimal':
-          if (action === 'stop') {
-            document.getElementById('tvpc-bottom-bar').style.backgroundColor = '';
-            document.getElementById('tvpc-gewis-logo').style.visibility = 'hidden';
-            document.getElementById('tvpc-explanation').style.visibility = 'hidden';
-            this.progressBar = document.getElementById('tvpc-progress-bar-bottom-inner');
-            this.currentSize = 'minimal';
-            await delay(20);
-          }
-          break;
+      case 'minimal':
+        if (action === 'stop') {
+          document.getElementById('tvpc-bottom-bar').style.backgroundColor = '';
+          document.getElementById('tvpc-gewis-logo').style.visibility = 'hidden';
+          document.getElementById('tvpc-explanation').style.visibility = 'hidden';
+          this.progressBar = document.getElementById('tvpc-progress-bar-bottom-inner');
+          this.currentSize = 'minimal';
+          await delay(20);
+        }
+        break;
       }
     }
   }

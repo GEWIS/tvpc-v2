@@ -1,4 +1,4 @@
-import {parseTimeToString} from './Helper';
+import { parseTimeToString } from './Helper';
 
 export default class Clock {
   private clock: HTMLElement;

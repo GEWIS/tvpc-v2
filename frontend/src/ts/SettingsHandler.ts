@@ -1,5 +1,5 @@
 import Settings from './entities/Settings';
-import {doXMLHttpRequest} from './Helper';
+import { doXMLHttpRequest } from './Helper';
 import LayoutHandler from './LayoutHandler';
 
 export class SettingsHandler {

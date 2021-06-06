@@ -1,5 +1,5 @@
 import BasePoster from './BasePoster';
-import {doXMLHttpRequest} from '../Helper';
+import { doXMLHttpRequest } from '../Helper';
 import Activity from '../entities/Activity';
 
 export default class AgendaPoster extends BasePoster {
@@ -61,7 +61,7 @@ export default class AgendaPoster extends BasePoster {
             </span>
                 <h2 class="activity-name ${cancelled ? 'strike' : 'nostrike'}">${this.activities[i].nameEn}</h2>`;
       if (this.activities[i].isMyFuture) {
-        inner += `<img class="myfuture" src="./src/img/myfuture_white.png">`;
+        inner += `<img class="myfuture" src="./resources/img/myfuture_white.png">`;
       }
       inner += `</li>`;
     }
