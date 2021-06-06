@@ -1,0 +1,33 @@
+{
+  "name": "tvpc-v2",
+  "version": "1.0.0",
+  "description": "A complete rewrite of the GEWIS AViCo TVPC script",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:fix": "eslint --fix src --ext .ts",
+    "wp": "webpack",
+    "compile": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yoronex/tvpc-v2.git"
+  },
+  "author": "Study Association GEWIS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yoronex/tvpc-v2/issues"
+  },
+  "homepage": "https://github.com/Yoronex/tvpc-v2#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
+    "copy-webpack-plugin": "^9.0.0",
+    "eslint": "^7.26.0",
+    "eslint-config-google": "^0.14.0",
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  }
+}
