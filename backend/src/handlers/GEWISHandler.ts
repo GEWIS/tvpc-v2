@@ -75,24 +75,24 @@ export async function getActivities(posterId: number): Promise<Activity[]> {
     }
 
     const fullActivities: ActivityFull[] = (await axios.get('https://gewis.nl/api/activity/list', config)).data;
-    const activities: Activity[] = fullActivities.filter((a) => a.isFood === false)
-      .map((a) => ({
-        id: a.id,
-        name: a.name,
-        nameEn: a.nameEn,
-        beginTime: a.beginTime,
-        endTime: a.endTime,
-        subscriptionDeadline: a.subscriptionDeadline,
-        location: a.location,
-        locationEn: a.LocationEn,
-        costs: a.costs,
-        costsEn: a.costsEn,
-        description: a.description,
-        descriptionEn: a.descriptionEn,
-        canSignUp: a.canSignUp,
-        isMyFuture: a.isMyFuture,
-        isFood: a.isFood,
-      }))
+    const activities: Activity[] = fullActivities
+        .map((a) => ({
+          id: a.id,
+          name: a.name,
+          nameEn: a.nameEn,
+          beginTime: a.beginTime,
+          endTime: a.endTime,
+          subscriptionDeadline: a.subscriptionDeadline,
+          location: a.location,
+          locationEn: a.LocationEn,
+          costs: a.costs,
+          costsEn: a.costsEn,
+          description: a.description,
+          descriptionEn: a.descriptionEn,
+          canSignUp: a.canSignUp,
+          isMyFuture: a.isMyFuture,
+          isFood: a.isFood,
+        }));
 
     resolve(activities);
   });

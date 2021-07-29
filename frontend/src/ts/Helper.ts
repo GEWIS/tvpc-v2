@@ -1,4 +1,4 @@
-export const baseUrl = 'https://cbc-tvpc-test.gewis.nl/';
+export const baseUrl = 'https://tvpc.gewis.nl/';
 
 export function delay(ms: number): Promise<NodeJS.Timeout> {
   return new Promise( (resolve) => setTimeout(resolve, ms) );
