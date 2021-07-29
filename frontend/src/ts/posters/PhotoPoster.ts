@@ -17,7 +17,7 @@ export default class PhotoPoster extends BasePoster {
     this.label = imageObj.label;
 
     this.image = new Image();
-    this.image.src = 'https://gewis.nl' + imageObj.sourceUrl;
+    this.image.src = imageObj.sourceUrl;
     console.log(imageObj);
   }
 
