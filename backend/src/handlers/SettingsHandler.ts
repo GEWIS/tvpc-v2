@@ -1,6 +1,6 @@
-import {updateSettings as trelloUpdate} from "./TrelloHandler";
-import {Layouts, Settings} from "../entities/Settings";
-import {shouldShowSnow} from "./DateHandler";
+import { updateSettings as trelloUpdate } from "./TrelloHandler";
+import { Layouts, Settings } from "../entities/Settings";
+import { shouldShowSnow } from "./DateHandler";
 
 export let _settings: Settings;
 

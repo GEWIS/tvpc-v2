@@ -1,7 +1,7 @@
-import express, {Response} from 'express';
-import * as routes from './routes';
+import express from 'express';
+import routes from './routes';
 import dotenv from 'dotenv';
-import {updateSettings} from "./handlers/SettingsHandler";
+import { updateSettings } from "./handlers/SettingsHandler";
 import * as fs from "fs";
 
 dotenv.config();
@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-routes.register(app);
+routes(app);
 
 if(!fs.existsSync('data')) {
   fs.mkdirSync('data');
@@ -19,14 +19,11 @@ async function startApp() {
   console.log('Loading settings from Trello...');
   await updateSettings();
 
-  app.use('/data', express.static('data', {
-    setHeaders:
-      function (res: Response, path: string, stat: any) {
-        res.set("Access-Control-Allow-Origin", "*");
-        res.set("Access-Control-Allow-Headers: X-Requested-With");
-      }
-    }
-  ));
+  // Maps /data to the data folder.
+  app.use('/data', express.static('data', { setHeaders: (res: express.Response) => {
+    res.setHeader('Cache-Control', 'public, max-age=600000');
+  } }));
+
   app.listen(port, () => {
     console.log(`TVPC backend listening at http://localhost:${port}`);
   });

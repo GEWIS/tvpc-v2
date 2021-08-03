@@ -6,7 +6,7 @@ export async function getTrains(): Promise<object> {
       headers: {
         'Ocp-Apim-Subscription-Key': process.env.NS_KEY,
       }
-    }
+    };
 
     const departures = (await axios.get('https://gateway.apiportal.ns.nl/reisinformatie-api/api/v2/departures' +
       '?station=EHV&maxJourneys=40', config)).data.payload.departures;
@@ -14,7 +14,7 @@ export async function getTrains(): Promise<object> {
     const minDepartTime = new Date((new Date()).getTime() + 8 * 60000);
 
     for (let i = 0; i < departures.length; i++) {
-      const actualDepartTime = new Date(departures[i].actualDateTime)
+      const actualDepartTime = new Date(departures[i].actualDateTime);
       if (minDepartTime > actualDepartTime) {
         continue;
       }

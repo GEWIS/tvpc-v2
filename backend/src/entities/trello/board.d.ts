@@ -1,6 +1,6 @@
-import {IList} from "./list";
-import {ICard} from "./card";
-import {ILabel} from "./label";
+import { IList } from "./list";
+import { ICard } from "./card";
+import { ILabel } from "./label";
 
 export interface IBoard {
     id: string;

@@ -1,8 +1,8 @@
 import axios from 'axios'
-import {IBoard, ICard, IList, ICheckItem, IAttachment} from '../entities/trello';
-import {Poster, PosterTypes} from '../entities/Poster';
+import { IBoard, ICard, IList, ICheckItem, IAttachment } from '../entities/trello';
+import { Poster, PosterTypes } from '../entities/Poster';
 import * as fs from "fs";
-import {Settings} from "../entities/Settings";
+import { Settings } from "../entities/Settings";
 
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
@@ -10,7 +10,7 @@ import {Settings} from "../entities/Settings";
  */
 export async function updateSettings(): Promise<Settings> {
   // Read all files that are currenly saved on disk
-  let savedImages = fs.readdirSync('./data/')
+  let savedImages = fs.readdirSync('./data/');
 
   let defaultTimeout = 15;
   let defaultFooter = 'full';
@@ -27,7 +27,7 @@ export async function updateSettings(): Promise<Settings> {
       token: process.env.TRELLO_TOKEN,
       key: process.env.TRELLO_KEY,
     }
-  }
+  };
   // Get the complete Trello board object. It is pretty big
   const board = (await axios.get(baseUrl + 'boards/' + process.env.TRELLO_BOARD_ID, config)).data as IBoard;
 
@@ -53,7 +53,7 @@ export async function updateSettings(): Promise<Settings> {
     } else if (card.name === 'footer') {
       defaultFooter = card.desc;
     }
-  })
+  });
 
   /**
    * Download a file and save it with the given filename in the /data/ directory
@@ -66,7 +66,7 @@ export async function updateSettings(): Promise<Settings> {
       return;
     }
 
-    return axios.get(fileUrl, {responseType: 'stream'}).then(response => {
+    return axios.get(fileUrl, { responseType: 'stream' }).then(response => {
 
       //ensure that the user can call `then()` only when the file has
       //been downloaded entirely.
@@ -142,7 +142,7 @@ export async function updateSettings(): Promise<Settings> {
     const diff = savedImages.filter(x => !newlySavedImages.includes(x));
     diff.forEach(function (file) {
       fs.unlinkSync('data/'+ file);
-    })
+    });
     // Set the global variable with the current list of images
     savedImages = newlySavedImages;
   }
@@ -157,7 +157,7 @@ export async function updateSettings(): Promise<Settings> {
   async function parseListToPosters(cards: ICard[], types: string) {
     let card;
     for (let i = 0; i < cards.length; i++) {
-      card = cards[i]
+      card = cards[i];
       // A card can be two things: a poster, or a reference to a new list of cards.
       // If it has the correct label ("Posterlist"), it means the card is a reference to a list
       if (card.labels.findIndex(label => label.name === 'Posterlist') > -1) {
@@ -236,7 +236,7 @@ export async function updateSettings(): Promise<Settings> {
             albumId = albumItem.split(' ')[0];
             // add this ID to the list
             poster.source.push(albumId);
-          })
+          });
           // Set the type to Photo
           poster.type = 'photo' as PosterTypes;
 
@@ -247,7 +247,7 @@ export async function updateSettings(): Promise<Settings> {
         }
 
         // Find the index of the "timeout" checklist if it exists
-        const indexTimeout = card.checklists.findIndex(checklist => checklist.name.toLowerCase() === 'timeout')
+        const indexTimeout = card.checklists.findIndex(checklist => checklist.name.toLowerCase() === 'timeout');
         // If it does exist, take the value of the first checkbox and make it the timeout value
         if (indexTimeout > -1) {
           poster.timeout = parseInt(card.checklists[indexTimeout].checkItems[0].name);
@@ -272,7 +272,7 @@ export async function updateSettings(): Promise<Settings> {
   }
 
   // First call to the recursive parse function with the baseList
-  await parseListToPosters(cardsInBaseList, 'base')
+  await parseListToPosters(cardsInBaseList, 'base');
   // Clean the disk of image posters that are not used anymore
   removeUnusedAttachments();
   // Put this list of posters in the settings object

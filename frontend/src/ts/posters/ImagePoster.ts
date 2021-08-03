@@ -4,7 +4,7 @@ import { baseUrl } from '../Helper';
 export default class ImagePoster extends BasePoster {
   private readonly sourceUrls: string[];
   private image: HTMLImageElement;
-  private shouldUseBaseUrl = false
+  private shouldUseBaseUrl = false;
 
   constructor(name: string, timeout: number, label: string, footer: 'full' | 'minimal',
     sourceUrls: string[], baseUrl = true) {

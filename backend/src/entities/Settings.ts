@@ -1,4 +1,4 @@
-import {Poster} from "./Poster";
+import { Poster } from "./Poster";
 
 export interface Settings {
   posters: Poster[],

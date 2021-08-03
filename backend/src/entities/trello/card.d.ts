@@ -1,5 +1,5 @@
 import { ILabel } from "./label";
-import {IChecklist} from "./checklist";
+import { IChecklist } from "./checklist";
 
 export interface ICard {
     id: string;

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {_settings} from './SettingsHandler';
+import { _settings } from './SettingsHandler';
 
 interface WebTimeObj {
   date: string;
@@ -39,10 +39,10 @@ export async function getPhoto(posterId: number): Promise<object> {
     headers: {
       'X-Auth-Token': process.env.GEWIS_KEY,
     }
-  }
+  };
 
   return new Promise(async (resolve, reject) => {
-    const result = {label: '', sourceUrl: ''};
+    const result = { label: '', sourceUrl: '' };
 
     const poster = _settings.posters[posterId];
     if (poster.type !== 'photo') {
@@ -66,7 +66,7 @@ export async function getActivities(posterId: number): Promise<Activity[]> {
     headers: {
       'X-Auth-Token': process.env.GEWIS_KEY,
     }
-  }
+  };
 
   return new Promise(async (resolve, reject) => {
     const poster = _settings.posters[posterId];
@@ -76,23 +76,23 @@ export async function getActivities(posterId: number): Promise<Activity[]> {
 
     const fullActivities: ActivityFull[] = (await axios.get('https://gewis.nl/api/activity/list', config)).data;
     const activities: Activity[] = fullActivities
-        .map((a) => ({
-          id: a.id,
-          name: a.name,
-          nameEn: a.nameEn,
-          beginTime: a.beginTime,
-          endTime: a.endTime,
-          subscriptionDeadline: a.subscriptionDeadline,
-          location: a.location,
-          locationEn: a.LocationEn,
-          costs: a.costs,
-          costsEn: a.costsEn,
-          description: a.description,
-          descriptionEn: a.descriptionEn,
-          canSignUp: a.canSignUp,
-          isMyFuture: a.isMyFuture,
-          isFood: a.isFood,
-        }));
+      .map((a) => ({
+        id: a.id,
+        name: a.name,
+        nameEn: a.nameEn,
+        beginTime: a.beginTime,
+        endTime: a.endTime,
+        subscriptionDeadline: a.subscriptionDeadline,
+        location: a.location,
+        locationEn: a.LocationEn,
+        costs: a.costs,
+        costsEn: a.costsEn,
+        description: a.description,
+        descriptionEn: a.descriptionEn,
+        canSignUp: a.canSignUp,
+        isMyFuture: a.isMyFuture,
+        isFood: a.isFood,
+      }));
 
     resolve(activities);
   });
@@ -103,7 +103,7 @@ export async function getInfima(posterId: number): Promise<string> {
     headers: {
       'X-Auth-Token': process.env.GEWIS_KEY,
     }
-  }
+  };
 
   return new Promise(async (resolve, reject) => {
     const poster = _settings.posters[posterId];
@@ -111,6 +111,8 @@ export async function getInfima(posterId: number): Promise<string> {
       reject('Given slide number is not an infima poster')
     }
 
+    const infima = (await axios.get('https://supremum.gewis.nl/api/random', config)).data;
+    console.log(infima);
     // TODO: Implement new infima API endpoint
     reject('There is currently no functioning infima API. If you want to help fix this, contact the Supremum committee :)')
   });
