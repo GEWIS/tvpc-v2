@@ -3,6 +3,7 @@ import { IBoard, ICard, IList, ICheckItem, IAttachment } from '../entities/trell
 import { Poster, PosterTypes } from '../entities/Poster';
 import * as fs from "fs";
 import { Settings } from "../entities/Settings";
+import { borrelModeEnabled } from "./SuSOSHandler";
 
 /**
  * Update the current settings object. This function takes some time to execute, so it should not implement some
@@ -61,6 +62,9 @@ export async function updateSettings(): Promise<Settings> {
       defaultFooter = card.desc;
     }
   });
+
+  // Check whether borrelmode is enabled in SuSOS
+  const borrelMode = await borrelModeEnabled();
 
   /**
    * Download a file and save it with the given filename in the /data/ directory
@@ -191,6 +195,12 @@ export async function updateSettings(): Promise<Settings> {
           // Skip this card
           continue;
         }
+
+        // If the card is for susos, but borrelmode is not enabled, skip the card
+        if (types === 'susos' && !borrelMode) {
+          continue;
+        }
+
         // Create an empty poster object
         const poster = {} as Poster;
         // Set the name and due date of the card
@@ -226,7 +236,7 @@ export async function updateSettings(): Promise<Settings> {
           poster.type = 'video' as PosterTypes;
 
         // If the poster type is an external (iframe) poster...
-        } else if (types === 'extern') {
+        } else if (types === 'extern' || types === 'susos') {
           // Set the source to be the description of the card
           poster.source = [card.desc];
           // Set the type to external
