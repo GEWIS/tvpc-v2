@@ -14,4 +14,5 @@ export async function updateSettings() {
   }
 
   _settings.layout = Layouts.GEWIS;
+  _settings.hash = undefined;
 }

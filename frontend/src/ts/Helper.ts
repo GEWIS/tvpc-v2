@@ -1,5 +1,5 @@
-export const baseUrl = 'https://tvpc.gewis.nl/';
-// export const baseUrl = 'http://localhost:9650/';
+// export const baseUrl = 'https://tvpc.gewis.nl/';
+export const baseUrl = 'http://localhost:9650/';
 
 export function delay(ms: number): Promise<NodeJS.Timeout> {
   return new Promise( (resolve) => setTimeout(resolve, ms) );

@@ -28,8 +28,15 @@ export async function updateSettings(): Promise<Settings> {
       key: process.env.TRELLO_KEY,
     }
   };
+
+  let board: IBoard;
+
   // Get the complete Trello board object. It is pretty big
-  const board = (await axios.get(baseUrl + 'boards/' + process.env.TRELLO_BOARD_ID, config)).data as IBoard;
+  (await axios.get(baseUrl + 'boards/' + process.env.TRELLO_BOARD_ID, config).then(res => {
+    board = res.data;
+  }).catch(error => {
+    console.error(error);
+  }));
 
   // Then, create an empty mapping object for the lists
   const lists = {} as Record<string, IList>;
@@ -66,7 +73,12 @@ export async function updateSettings(): Promise<Settings> {
       return;
     }
 
-    return axios.get(fileUrl, { responseType: 'stream' }).then(response => {
+    // New trello update
+    const headers = {
+      'Authorization': `OAuth oauth_consumer_key=\"${process.env.TRELLO_KEY}\", oauth_token=\"${process.env.TRELLO_TOKEN}\"`
+    };
+
+    return axios.get(fileUrl, { responseType: 'stream', headers }).then(response => {
 
       //ensure that the user can call `then()` only when the file has
       //been downloaded entirely.
@@ -88,7 +100,7 @@ export async function updateSettings(): Promise<Settings> {
           //'error' stream;
         });
       });
-    });
+    })
   }
 
   /**
@@ -125,7 +137,9 @@ export async function updateSettings(): Promise<Settings> {
       const fileName = attachment.id + '.' + fileExtension;
 
       // Download this image and wait for it to complete
-      await downloadImageFiles(attachment.url, fileName);
+      await downloadImageFiles(attachment.url, fileName).catch(error => {
+        console.log(error)
+      });
       // Save the filename in the newly saved images array, used to delete unused attachments
       newlySavedImages.push(fileName);
       // Put this image URL in the resulting array

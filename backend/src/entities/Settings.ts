@@ -6,6 +6,7 @@ export interface Settings {
   defaultFooter: string;
   screenEffect: string;
   layout: Layouts
+  hash: string;
 }
 
 export enum Layouts {
