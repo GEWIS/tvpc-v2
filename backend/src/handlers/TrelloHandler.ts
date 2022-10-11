@@ -63,9 +63,6 @@ export async function updateSettings(): Promise<Settings> {
     }
   });
 
-  // Check whether borrelmode is enabled in SuSOS
-  const borrelMode = await borrelModeEnabled();
-
   /**
    * Download a file and save it with the given filename in the /data/ directory
    * @param {string} fileUrl - location of the to be downloaded file
@@ -197,7 +194,7 @@ export async function updateSettings(): Promise<Settings> {
         }
 
         // If the card is for susos, but borrelmode is not enabled, skip the card
-        if (types === 'susos' && !borrelMode) {
+        if (types === 'susos') {
           continue;
         }
 
