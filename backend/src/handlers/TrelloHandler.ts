@@ -163,6 +163,20 @@ export async function updateSettings(): Promise<Settings> {
   }
 
   /**
+   * Parse description. If it is a Markdown, it will parse the link, if it isn't it will return
+   * the description (which is then hopefully the link)
+   * @param link
+   */
+  function parseMarkdownLink(link: string):string {
+    let regex: RegExp = /\[[https?:\/\/[\w\d./?=#]+\]\((https?:\/\/[\w\d./?=#]+)(?: ".*")?\)/;
+    let matches: RegExpMatchArray = link.match(regex);
+    if (matches != null) {
+      return matches[1];
+    } else {
+      return link;
+    }
+  }
+  /**
    * Recursive function to parse a list of card to poster objects.
    * This function is recursive, because it allows cards in a list to refer to another list
    * This in turn allows for a better ordering of posters and allows e.g. photo posters to be in the list more than once
@@ -234,8 +248,10 @@ export async function updateSettings(): Promise<Settings> {
 
         // If the poster type is an external (iframe) poster...
         } else if (types === 'extern' || types === 'susos') {
+          // parse the link
+          let link = parseMarkdownLink(card.desc);
           // Set the source to be the description of the card
-          poster.source = [card.desc];
+          poster.source = [link];
           // Set the type to external
           poster.type = PosterTypes.external;
 
