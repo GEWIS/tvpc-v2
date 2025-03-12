@@ -1,3 +1,6 @@
+> [!WARNING]
+> `tvpc-v2` is obsolete and unmaintained. Please use [aurora-core](https://github.com/gewis/aurora-core) with [aurora-client](https://github.com/gewis/aurora-client) instead.
+
 # GEWIS AViCo TVPC Script (v2)
 
 This repository is a complete rewrite of the TVPC script, 
